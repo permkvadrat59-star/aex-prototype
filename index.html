@@ -1,0 +1,1071 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Автоэксклюзив · прототип</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%23F26A1B%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css">
+<style>
+:root{
+  --bg:#F2F2EF; --surface:#FAFAF8; --tile:#E8E8E4; --tile-2:#DEDED9;
+  --ink:#15171A; --ink-2:#3E434A; --ink-3:#5F646C;
+  --line:#DCDCD6; --line-2:#C9C9C2;
+  --accent:#F26A1B; --accent-hover:#E35C0E; --accent-soft:#FCE3D3;
+  --ok:#1F7542;
+  --dark:#16181B; --dark-2:#202328; --dark-line:#33373D; --dark-ink-2:#B9BCC1;
+  --r:6px;
+  --sans:'Onest',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,'Cascadia Mono',Consolas,monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0;padding:0}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px;border-radius:4px}
+.wrap{max-width:1320px;margin:0 auto;padding:0 24px}
+.mono{font-family:var(--mono);font-weight:500;letter-spacing:-.01em}
+.num{font-variant-numeric:tabular-nums}
+.muted{color:var(--ink-3)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ph,.ph-fill{line-height:1}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 20px;border-radius:var(--r);font-weight:600;font-size:15px;white-space:nowrap;transition:background .2s var(--ease),border-color .2s var(--ease),transform .1s}
+.btn:active{transform:translateY(1px)}
+.btn-accent{background:var(--accent);color:var(--ink)}
+.btn-accent:hover{background:var(--accent-hover)}
+.btn-ink{background:var(--ink);color:#F4F4F1}
+.btn-ink:hover{background:#2A2D32}
+.btn-line{border:1px solid var(--line-2);background:var(--surface)}
+.btn-line:hover{border-color:var(--ink)}
+.btn-sm{height:38px;padding:0 14px;font-size:14px}
+.btn[disabled]{opacity:.5;pointer-events:none}
+.link{border-bottom:1px solid var(--accent);padding-bottom:1px;transition:color .2s}
+.link:hover{color:var(--accent-hover)}
+.arrow-link{display:inline-flex;align-items:center;gap:6px;font-weight:600}
+.arrow-link i{transition:transform .2s var(--ease)}
+.arrow-link:hover i{transform:translateX(3px)}
+
+/* proto banner */
+.proto{background:var(--ink);color:#E9E9E6;font-size:13px}
+.proto .wrap{display:flex;align-items:center;gap:12px;min-height:34px;padding-top:6px;padding-bottom:6px}
+.proto b{color:var(--accent);font-weight:600}
+.proto button{margin-left:auto;color:#E9E9E6;opacity:.7;font-size:16px;display:flex}
+.proto button:hover{opacity:1}
+
+/* header */
+.util{background:var(--bg);border-bottom:1px solid var(--line);font-size:13.5px;color:var(--ink-2)}
+.util .wrap{display:flex;align-items:center;gap:22px;height:38px}
+.util .sp{flex:1}
+.util a:hover{color:var(--ink)}
+.status{display:inline-flex;align-items:center;gap:7px}
+.status .dot{width:7px;height:7px;border-radius:50%;background:var(--ink-3)}
+.status.open .dot{background:var(--ok)}
+.hdr{position:sticky;top:0;z-index:40;background:var(--surface);border-bottom:1px solid var(--line)}
+.hdr .wrap{display:flex;align-items:center;gap:16px;height:72px}
+.logo img{height:30px;width:auto}
+.cat-btn{height:46px;padding:0 16px 0 14px;border-radius:var(--r);background:var(--ink);color:#F4F4F1;font-weight:600;display:flex;align-items:center;gap:9px;font-size:15px}
+.cat-btn i{font-size:20px}
+.cat-btn:hover{background:#2A2D32}
+.search{position:relative;flex:1;min-width:0}
+.search-box{display:flex;align-items:center;height:46px;border:1.5px solid var(--line-2);border-radius:var(--r);background:#fff;transition:border-color .15s}
+.search-box:focus-within{border-color:var(--ink)}
+.search-box i.lead{font-size:19px;color:var(--ink-3);margin-left:14px}
+.search-box input{flex:1;min-width:0;height:100%;border:0;outline:0;background:transparent;padding:0 12px;font-size:15px}
+.search-box input::placeholder{color:#7A7F86}
+.search-box input::-webkit-search-cancel-button{-webkit-appearance:none;display:none}
+.search-box .go{height:36px;margin-right:4px;padding:0 16px;border-radius:4px;background:var(--accent);font-weight:600;font-size:14px;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.search-box .go:hover{background:var(--accent-hover)}
+.hdr-phone{display:flex;flex-direction:column;line-height:1.2;white-space:nowrap}
+.hdr-phone a{font-weight:700;font-size:17px}
+.hdr-phone span{font-size:12.5px;color:var(--ink-3)}
+.icon-btn{position:relative;width:46px;height:46px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:22px;border:1px solid var(--line)}
+.icon-btn:hover{border-color:var(--ink)}
+.icon-btn .badge{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 5px;border-radius:10px;background:var(--accent);color:var(--ink);font:600 11.5px/20px var(--sans);text-align:center}
+.icon-btn .badge:empty{display:none}
+.cart-btn{display:flex;align-items:center;gap:10px;height:46px;padding:0 14px;border-radius:var(--r);border:1px solid var(--line);font-weight:600;font-size:15px;white-space:nowrap}
+.cart-btn:hover{border-color:var(--ink)}
+.cart-btn i{font-size:21px}
+.cart-btn .cnt{min-width:22px;height:22px;border-radius:11px;background:var(--accent);font-size:12px;line-height:22px;text-align:center;padding:0 6px}
+.cart-btn .cnt:empty{display:none}
+.m-only{display:none}
+
+/* mega menu */
+.mega{position:absolute;left:0;right:0;top:100%;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:0 24px 40px -24px rgba(30,32,36,.25);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .18s var(--ease),transform .18s var(--ease),visibility .18s}
+.mega.open{opacity:1;visibility:visible;transform:none}
+.mega .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;padding-top:28px;padding-bottom:32px;height:auto}
+.mega h4{margin:0 0 12px;font-size:13.5px;font-weight:600;color:var(--ink-3)}
+.mega ul{list-style:none;margin:0;padding:0;columns:2;column-gap:32px}
+.mega li a{display:flex;justify-content:space-between;gap:12px;padding:7px 0;font-weight:500;break-inside:avoid}
+.mega li a:hover{color:var(--accent-hover)}
+.mega li a span{color:var(--ink-3);font-family:var(--mono);font-size:13px}
+
+/* suggestions */
+.sugg{position:absolute;left:0;right:0;top:calc(100% + 6px);background:#fff;border:1px solid var(--line-2);border-radius:var(--r);box-shadow:0 20px 40px -20px rgba(30,32,36,.3);z-index:45;display:none;overflow:hidden}
+.sugg.open{display:block}
+.sugg a{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;padding:9px 12px}
+.sugg a:hover,.sugg a.act{background:var(--bg)}
+.sugg .th{width:44px;height:44px;border-radius:4px;background:var(--tile);overflow:hidden;display:flex;align-items:center;justify-content:center;color:var(--ink-3)}
+.sugg .th img{mix-blend-mode:multiply;width:100%;height:100%;object-fit:contain}
+.sugg .t{font-size:14px;font-weight:500;line-height:1.3}
+.sugg .a{font-size:12.5px;color:var(--ink-3)}
+.sugg mark{background:var(--accent-soft);color:inherit;border-radius:2px}
+.sugg .p{font-size:14px;font-weight:600;white-space:nowrap}
+.sugg .all{display:flex;justify-content:space-between;border-top:1px solid var(--line);font-size:14px;font-weight:600;padding:11px 12px;grid-template-columns:none}
+.sugg .empty{padding:14px;font-size:14px;color:var(--ink-2)}
+
+/* sections */
+section{padding:72px 0}
+h1,h2,h3{margin:0;letter-spacing:-.02em;line-height:1.08}
+h2{font-size:clamp(26px,2.6vw,36px);font-weight:700}
+.lead-p{margin:14px 0 0;color:var(--ink-2);max-width:62ch}
+
+/* hero */
+.hero{padding:40px 0 56px}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:56px;align-items:center}
+.hero h1{font-size:clamp(32px,3.5vw,50px);font-weight:750;letter-spacing:-.028em;line-height:1.04;max-width:21ch}
+.hero .sub{margin:18px 0 28px;font-size:18px;color:var(--ink-2);max-width:46ch}
+.hero .search-box{height:62px;border-width:2px;border-color:var(--ink)}
+.hero .search-box input{font-size:17px}
+.hero .search-box .go{height:48px;padding:0 24px;font-size:15px;margin-right:5px}
+.hero .search-box i.lead{font-size:22px;margin-left:18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px;font-size:14px;color:var(--ink-3)}
+.chip{height:32px;padding:0 12px;border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);font-family:var(--mono);font-size:13px;color:var(--ink);transition:border-color .15s,background .15s}
+.chip:hover{border-color:var(--ink)}
+.hero .alt{margin-top:26px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.hero .alt .or{color:var(--ink-3);font-size:15px}
+.stock-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stock-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;font-size:14.5px;font-weight:600}
+.stock-head a{font-weight:500;color:var(--ink-2)}
+.sc{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:10px 10px 14px;display:flex;flex-direction:column;transition:border-color .2s,transform .3s var(--ease)}
+.sc:hover{border-color:var(--ink);transform:translateY(-2px)}
+.sc .im{aspect-ratio:16/10;background:var(--tile);border-radius:4px;overflow:hidden}
+.sc .im img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;padding:6%}
+.sc .art{margin-top:12px;font-size:12.5px;color:var(--ink-3)}
+.sc .nm{font-size:14.5px;font-weight:600;line-height:1.3;margin-top:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.6em}
+.sc .row{display:flex;justify-content:space-between;align-items:baseline;margin-top:10px}
+.sc .pr{font-weight:700;font-size:17px}
+.stk{font-size:13px;color:var(--ok);font-weight:500;white-space:nowrap}
+
+/* ural band */
+.ural{background:var(--dark);color:#EDEDEA;padding:0}
+.ural .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;padding-top:44px;padding-bottom:44px;align-items:center}
+.ural .seal{display:flex;gap:18px;align-items:flex-start}
+.ural .seal>i{font-size:40px;color:var(--accent);flex:none;margin-top:2px}
+.ural h2{font-size:clamp(22px,2vw,28px);font-weight:650;line-height:1.2;letter-spacing:-.015em}
+.ural p{margin:10px 0 16px;color:var(--dark-ink-2)}
+.ural .arrow-link{color:#fff}
+.ural .facts{display:grid;grid-template-columns:repeat(3,1fr);border-left:1px solid var(--dark-line)}
+.ural .facts div{padding:4px 0 4px 24px}
+.ural .facts b{display:block;font:600 clamp(28px,2.6vw,38px)/1 var(--mono);letter-spacing:-.03em;color:#fff}
+.ural .facts span{display:block;margin-top:10px;font-size:14px;color:var(--dark-ink-2);line-height:1.35}
+
+/* brands */
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:28px}
+.brands{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:minmax(132px,auto);gap:12px}
+.bt{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px 20px 18px;display:flex;flex-direction:column;justify-content:space-between;transition:border-color .2s,background .2s}
+.bt:hover{border-color:var(--ink)}
+.bt .n{font-size:26px;font-weight:750;letter-spacing:-.025em;line-height:1}
+.bt .c{font-size:13px;color:var(--ink-3)}
+.bt .go{position:absolute;right:18px;top:20px;font-size:20px;color:var(--ink-3);transition:transform .2s var(--ease),color .2s}
+.bt:hover .go{transform:translateX(3px);color:var(--ink)}
+.bt .tag{display:inline-block;margin-top:10px;font-size:12px;line-height:1.3;font-weight:600;padding:4px 8px;border-radius:4px;background:var(--accent-soft);color:#7A2E05}
+.bt.big{grid-column:span 2;grid-row:span 2;background:var(--ink);color:#F1F1EE;border-color:var(--ink);padding:26px}
+.bt.big .n{font-size:clamp(40px,4.4vw,64px)}
+.bt.big .c{color:var(--dark-ink-2);margin-top:10px;font-size:14px}
+.bt.big .go{color:var(--dark-ink-2);top:28px;right:26px}
+.bt.big .bt-link{display:block}
+.bt.big .bt-link:hover .go{color:var(--accent);transform:translateX(3px)}
+.bt.big:hover{border-color:var(--ink)}
+.bt.big ul{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:0 24px}
+.bt.big li a{display:flex;gap:10px;padding:8px 0;border-top:1px solid var(--dark-line);font-size:14.5px;color:#E4E4E0}
+.bt.big li a:hover{color:var(--accent)}
+.bt.big li .mono{color:var(--dark-ink-2);font-size:12.5px;min-width:22px}
+.bt.wide{grid-column:span 2}
+
+/* offers compare */
+.compare{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.compare .wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:64px;align-items:center}
+.compare .lead-p{margin-bottom:22px}
+.offers{border:1px solid var(--line);border-radius:var(--r);background:#fff;overflow:hidden}
+.offers-top{display:flex;gap:14px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line);background:var(--bg)}
+.offers-top .th{width:56px;height:56px;border-radius:4px;background:var(--tile);overflow:hidden;flex:none}
+.offers-top .th img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
+.offers-top b{display:block;font-size:15.5px;line-height:1.25}
+.offers-top span{font-size:13px;color:var(--ink-3)}
+.otable{width:100%;border-collapse:collapse;font-size:14.5px}
+.otable th{font-size:12.5px;font-weight:500;color:var(--ink-3);text-align:left;padding:10px 16px 8px}
+.otable td{padding:12px 16px;border-top:1px solid var(--line);vertical-align:middle}
+.otable tr.best td{background:#FFF8F3}
+.otable .br{font-weight:600}
+.otable .br small{display:block;font-weight:400;font-size:12.5px;color:var(--ink-3);margin-top:1px}
+.otable .br small.stk{color:var(--ok);font-weight:500}
+.otable .noname{font-weight:500;color:var(--ink-3)}
+.badge-o{display:inline-block;margin-left:8px;font-size:11.5px;font-weight:600;padding:2px 7px;border-radius:4px;border:1px solid var(--ink);vertical-align:1px}
+.otable .pr{font-weight:700;font-size:16px;white-space:nowrap;text-align:right}
+.otable .act{text-align:right;width:1%;white-space:nowrap}
+.add{height:36px;padding:0 14px;border-radius:var(--r);background:var(--accent);font-weight:600;font-size:14px;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;transition:background .15s}
+.add:hover{background:var(--accent-hover)}
+.add.in{background:var(--tile);color:var(--ink)}
+.add i{font-size:16px}
+
+/* types bento */
+.types{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:minmax(150px,auto);gap:12px}
+.ty{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 16px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;transition:border-color .2s}
+.ty:hover{border-color:var(--ink)}
+.ty .n{font-weight:650;font-size:17px;line-height:1.25;max-width:14ch;position:relative;z-index:1}
+.ty .c{font-size:13px;color:var(--ink-3);position:relative;z-index:1}
+.ty.ph-cell{background:var(--tile);border-color:var(--tile)}
+.ty.ph-cell img{position:absolute;right:4%;bottom:5%;height:84%;width:auto;max-width:58%;aspect-ratio:1;object-fit:contain;mix-blend-mode:multiply;transition:transform .5s var(--ease)}
+.ty.ph-cell:hover img{transform:scale(1.04)}
+.ty.span2{grid-column:span 2}
+.ty.span2 img{height:96%;max-width:50%;right:6%;bottom:2%}
+.ty.span2 .n{font-size:22px}
+
+/* b2b */
+.b2b .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.82fr);gap:56px;align-items:start}
+.pts{display:grid;grid-template-columns:1fr 1fr;gap:28px 32px;margin-top:34px}
+.pt i{font-size:26px;color:var(--ink)}
+.pt b{display:block;margin-top:10px;font-size:17px}
+.pt p{margin:6px 0 0;color:var(--ink-2);font-size:15px}
+.form-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:28px}
+.form-card h3{font-size:21px;font-weight:700}
+.form-card .hint{margin:8px 0 20px;color:var(--ink-2);font-size:14.5px}
+.fld{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.fld label{font-size:13.5px;font-weight:600;color:var(--ink-2)}
+.fld input,.fld textarea,.fld select{height:46px;border:1.5px solid var(--line-2);border-radius:var(--r);background:#fff;padding:0 13px;font-size:15px;outline:0;transition:border-color .15s}
+.fld textarea{height:auto;min-height:120px;padding:11px 13px;resize:vertical;line-height:1.45}
+.fld input:focus,.fld textarea:focus,.fld select:focus{border-color:var(--ink)}
+.fld input::placeholder,.fld textarea::placeholder{color:#80858C}
+.fld .err{display:none;font-size:13px;color:#B42318}
+.fld.bad input{border-color:#B42318}
+.fld.bad .err{display:block}
+.fld .help{font-size:12.5px;color:var(--ink-3)}
+.pick{display:flex;flex-wrap:wrap;gap:8px}
+.pick button{height:34px;padding:0 12px;border-radius:var(--r);border:1px solid var(--line-2);font-size:14px;font-weight:500;background:#fff}
+.pick button.on{background:var(--ink);border-color:var(--ink);color:#F4F4F1}
+.seg{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line-2);border-radius:var(--r);overflow:hidden;background:#fff}
+.seg button{height:42px;font-size:14.5px;font-weight:600;color:var(--ink-2)}
+.seg button.on{background:var(--ink);color:#F4F4F1}
+.done{text-align:left;padding:8px 0}
+.done i{font-size:40px;color:var(--ok)}
+.done h3{margin-top:12px}
+.done p{color:var(--ink-2);margin:8px 0 0}
+
+/* delivery */
+.deliv .wrap{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:56px}
+.zero{background:var(--accent);border-radius:var(--r);padding:32px;display:flex;flex-direction:column;justify-content:space-between;min-height:340px}
+.zero b{font:800 clamp(80px,10vw,144px)/.85 var(--sans);letter-spacing:-.05em}
+.zero p{margin:0;font-size:clamp(20px,1.8vw,24px);font-weight:600;line-height:1.25;max-width:18ch}
+.zero small{display:block;margin-top:14px;font-size:14.5px;font-weight:500;max-width:36ch}
+.ways{display:flex;flex-direction:column}
+.way{display:grid;grid-template-columns:44px 1fr;gap:16px;padding:22px 0;border-top:1px solid var(--line)}
+.way:first-child{border-top:0;padding-top:4px}
+.way i{font-size:28px}
+.way b{font-size:18px}
+.way p{margin:5px 0 0;color:var(--ink-2);font-size:15px}
+
+/* articles */
+.arts{display:grid;grid-template-columns:repeat(2,1fr);gap:0 48px;border-top:1px solid var(--line)}
+.art-l{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0;border-bottom:1px solid var(--line);font-size:17px;font-weight:600;line-height:1.3}
+.art-l i{font-size:20px;color:var(--ink-3);transition:transform .2s var(--ease),color .2s}
+.art-l:hover i{transform:translateX(4px);color:var(--ink)}
+
+/* contacts */
+.contacts .wrap{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:48px;align-items:stretch}
+.pt-card{padding:22px 0;border-bottom:1px solid var(--line)}
+.pt-card:first-of-type{padding-top:0}
+.pt-card b{font-size:18px;display:block}
+.pt-card p{margin:6px 0 0;color:var(--ink-2)}
+.big-phone{font-size:26px;font-weight:750;letter-spacing:-.02em;display:block;margin-top:24px}
+.map{border-radius:var(--r);overflow:hidden;border:1px solid var(--line);min-height:380px;background:var(--tile)}
+.map iframe{width:100%;height:100%;min-height:380px;border:0;display:block}
+
+/* footer */
+footer{background:var(--dark);color:var(--dark-ink-2);padding:56px 0 28px;font-size:14.5px}
+footer .top{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:40px}
+footer h5{margin:0 0 14px;color:#fff;font-size:14px;font-weight:600}
+footer ul{list-style:none;margin:0;padding:0}
+footer li{padding:4px 0}
+footer a:hover{color:#fff}
+footer .ph-big{color:#fff;font-size:22px;font-weight:700;display:block;margin-top:18px}
+footer .bottom{margin-top:44px;padding-top:20px;border-top:1px solid var(--dark-line);display:flex;flex-wrap:wrap;gap:8px 24px;font-size:13px}
+footer .bottom .sp{flex:1}
+
+/* inner pages */
+.crumbs{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13.5px;color:var(--ink-3);padding-top:24px}
+.crumbs a:hover{color:var(--ink)}
+.crumbs i{font-size:12px}
+.page-h{padding:14px 0 28px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.page-h h1{font-size:clamp(30px,3.4vw,46px);font-weight:750}
+.page-h p{margin:10px 0 0;color:var(--ink-2)}
+.clusters{columns:3;column-gap:24px;padding-bottom:72px}
+.cl{break-inside:avoid;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 8px;margin-bottom:24px}
+.cl h3{font-size:16px;font-weight:700;margin-bottom:6px;display:flex;justify-content:space-between}
+.cl h3 span{font-weight:500;color:var(--ink-3);font-size:13px;font-family:var(--mono)}
+.cl a{display:grid;grid-template-columns:44px 1fr auto;gap:8px;padding:9px 0;border-top:1px solid var(--line);font-size:15px;align-items:baseline}
+.cl a:first-of-type{border-top:0}
+.cl a .mono{color:var(--ink-3);font-size:13px}
+.cl a .c{font-size:12.5px;color:var(--ink-3);font-family:var(--mono)}
+.cl a:hover{color:var(--accent-hover)}
+.cl a.hot{font-weight:600}
+.cl a.hot .mono{color:var(--accent-hover)}
+
+.listing{display:grid;grid-template-columns:250px minmax(0,1fr);gap:32px;padding-bottom:72px;align-items:start}
+.filters{position:sticky;top:96px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.filters h4{margin:0 0 10px;font-size:14px}
+.m-flt,.m-flt-close{display:none!important}
+.filters .grp{padding:14px 0;border-top:1px solid var(--line)}
+.filters .grp:first-child{border-top:0;padding-top:0}
+.chk{display:flex;align-items:center;gap:10px;padding:5px 0;font-size:14.5px;cursor:pointer}
+.chk input{width:18px;height:18px;accent-color:var(--ink);margin:0}
+.chk span.c{margin-left:auto;font-family:var(--mono);font-size:12.5px;color:var(--ink-3)}
+.subs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.subs button{height:38px;padding:0 14px;border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);font-weight:500;font-size:14.5px}
+.subs button.on{background:var(--ink);color:#F4F4F1;border-color:var(--ink)}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px;font-size:14px;color:var(--ink-3)}
+.bar select{height:38px;border:1px solid var(--line-2);border-radius:var(--r);background:var(--surface);padding:0 10px;font-size:14px;color:var(--ink)}
+.ltable{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.lrow{display:grid;grid-template-columns:64px minmax(0,1fr) 180px 92px 120px 150px;gap:16px;align-items:center;padding:12px 16px;border-top:1px solid var(--line)}
+.lrow:first-child{border-top:0}
+.lhead{font-size:12.5px;color:var(--ink-3);padding-top:10px;padding-bottom:10px;background:var(--bg)}
+.lrow .th{width:64px;height:64px;border-radius:4px;background:var(--tile);overflow:hidden;display:flex;align-items:center;justify-content:center;color:#9A9EA4;font-size:22px}
+.lrow .th img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
+.lrow .nm{font-weight:600;font-size:15px;line-height:1.3}
+.lrow .nm:hover{color:var(--accent-hover)}
+.lrow .art{font-size:13px;color:var(--ink-3);margin-top:3px;display:block}
+.lrow .brs{font-size:14px;line-height:1.35}
+.lrow .brs small{display:block;color:var(--ink-3);font-size:12.5px}
+.lrow .pr{font-weight:700;font-size:16px;text-align:right;white-space:nowrap}
+.lrow .pr small{display:block;font-weight:500;font-size:12px;color:var(--ink-3)}
+.lrow .act{text-align:right}
+.var-btn{height:36px;padding:0 12px;border-radius:var(--r);border:1px solid var(--ink);font-weight:600;font-size:14px;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.var-btn i{transition:transform .2s var(--ease)}
+.var-btn.open i{transform:rotate(180deg)}
+.subrows{display:none;background:var(--bg);border-top:1px solid var(--line)}
+.subrows.open{display:block}
+.srow{display:grid;grid-template-columns:64px minmax(0,1fr) 180px 92px 120px 150px;gap:16px;align-items:center;padding:9px 16px;font-size:14px}
+.srow+.srow{border-top:1px dashed var(--line)}
+.more{display:flex;justify-content:center;padding:18px}
+.empty-state{padding:48px 24px;text-align:left;max-width:560px}
+.empty-state i{font-size:36px;color:var(--ink-3)}
+.empty-state h3{font-size:22px;margin-top:12px}
+.empty-state p{color:var(--ink-2);margin:8px 0 20px}
+
+.product{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:48px;padding-bottom:40px;align-items:start}
+.gal-main{aspect-ratio:1/1;background:var(--tile);border-radius:var(--r);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.gal-main img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;padding:4%}
+.gal-main .nophoto{display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--ink-3);font-size:14px}
+.gal-main .nophoto i{font-size:44px}
+.thumbs{display:flex;gap:10px;margin-top:10px}
+.thumbs button{width:76px;height:76px;border-radius:4px;background:var(--tile);overflow:hidden;border:2px solid transparent}
+.thumbs button.on{border-color:var(--ink)}
+.thumbs img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
+.p-title{font-size:clamp(26px,2.6vw,36px);font-weight:750}
+.p-meta{display:flex;flex-wrap:wrap;gap:10px 24px;margin:14px 0 24px;font-size:14.5px;color:var(--ink-2)}
+.copy{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 10px;border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);font-family:var(--mono);font-size:14px;font-weight:600;color:var(--ink)}
+.copy i{color:var(--ink-3)}
+.copy:hover{border-color:var(--ink)}
+.p-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+.info{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.info h4{margin:0 0 10px;font-size:15px}
+.info .ln{display:grid;grid-template-columns:24px 1fr;gap:10px;padding:7px 0;font-size:14.5px;color:var(--ink-2)}
+.info .ln i{font-size:19px;color:var(--ink);margin-top:1px}
+.info .ln b{color:var(--ink);font-weight:600}
+.spec{display:flex;justify-content:space-between;gap:12px;padding:7px 0;font-size:14.5px}
+.spec span:first-child{color:var(--ink-3)}
+.oneclick{margin-top:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:14.5px;color:var(--ink-2)}
+.desc{max-width:72ch;color:var(--ink-2);padding-bottom:72px}
+.desc h3{color:var(--ink);font-size:20px;margin-bottom:10px}
+
+/* drawer / modal / toast */
+.ovl{position:fixed;inset:0;background:rgba(21,23,26,.45);z-index:60;opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s}
+.ovl.open{opacity:1;visibility:visible}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(440px,100%);background:var(--surface);z-index:61;transform:translateX(100%);transition:transform .32s var(--ease);display:flex;flex-direction:column}
+.drawer.open{transform:none}
+.dr-h{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line)}
+.dr-h h3{font-size:20px}
+.x{width:40px;height:40px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:20px}
+.x:hover{background:var(--bg)}
+.dr-b{flex:1;overflow:auto;padding:8px 20px}
+.dr-f{border-top:1px solid var(--line);padding:16px 20px 20px}
+.ci{display:grid;grid-template-columns:56px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.ci .th{width:56px;height:56px;border-radius:4px;background:var(--tile);overflow:hidden;display:flex;align-items:center;justify-content:center;color:#9A9EA4}
+.ci .th img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
+.ci .t{font-size:14.5px;font-weight:600;line-height:1.3}
+.ci .s{font-size:12.5px;color:var(--ink-3);margin-top:2px}
+.ci .r{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--line-2);border-radius:var(--r);height:32px}
+.qty button{width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:14px}
+.qty span{min-width:28px;text-align:center;font-size:14px;font-weight:600}
+.rm{font-size:13px;color:var(--ink-3);display:inline-flex;gap:4px;align-items:center;margin-left:10px}
+.rm:hover{color:#B42318}
+.sum{display:flex;justify-content:space-between;align-items:baseline;font-size:15px}
+.sum b{font-size:22px}
+.free{font-size:13.5px;color:var(--ink-2);margin:6px 0 14px}
+.modal{position:fixed;left:50%;top:50%;z-index:71;width:min(520px,calc(100% - 32px));max-height:calc(100dvh - 48px);overflow:auto;background:var(--surface);border-radius:var(--r);padding:28px;transform:translate(-50%,-48%);opacity:0;visibility:hidden;transition:opacity .2s var(--ease),transform .25s var(--ease),visibility .2s}
+.modal.open{opacity:1;visibility:visible;transform:translate(-50%,-50%)}
+.modal .x{position:absolute;right:12px;top:12px}
+.modal h3{font-size:22px;padding-right:40px}
+.modal .hint{color:var(--ink-2);font-size:14.5px;margin:8px 0 20px}
+.drop{display:flex;align-items:center;gap:12px;border:1.5px dashed var(--line-2);border-radius:var(--r);padding:14px;font-size:14.5px;color:var(--ink-2);cursor:pointer;background:#fff}
+.drop:hover{border-color:var(--ink)}
+.drop i{font-size:22px;color:var(--ink)}
+.toast{position:fixed;left:50%;bottom:24px;z-index:80;transform:translate(-50%,20px);opacity:0;background:var(--ink);color:#F4F4F1;padding:12px 16px;border-radius:var(--r);font-size:14.5px;display:flex;gap:10px;align-items:center;max-width:calc(100% - 32px);transition:opacity .2s,transform .3s var(--ease);pointer-events:none}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast i{color:var(--accent);font-size:18px}
+
+.view{animation:fadein .35s var(--ease)}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+
+/* responsive */
+@media (max-width:1180px){
+  .hdr-phone span{display:none}
+  .lrow,.srow{grid-template-columns:56px minmax(0,1fr) 150px 80px 110px 140px;gap:12px}
+  .lrow .th{width:56px;height:56px}
+}
+@media (max-width:1024px){
+  .util{display:none}
+  .hdr-phone{display:none}
+  .m-only{display:flex}
+  .hero .wrap,.compare .wrap,.b2b .wrap,.deliv .wrap,.contacts .wrap,.ural .wrap,.product{grid-template-columns:1fr;gap:36px}
+  .hero h1{max-width:18ch}
+  .clusters{columns:2}
+  .listing{grid-template-columns:1fr}
+  .filters{display:none}
+  .filters.open{display:block;position:fixed;left:0;right:0;bottom:0;top:auto;z-index:62;max-height:78dvh;overflow:auto;border-radius:var(--r) var(--r) 0 0;box-shadow:0 -20px 40px -10px rgba(21,23,26,.35);padding:20px 16px}
+  .m-flt-close{display:flex!important}
+  .bar{flex-wrap:wrap}
+  .bar #lcount{flex-basis:100%}
+  .m-flt{display:inline-flex!important}
+  .bar label{margin-left:auto}
+  footer .top{grid-template-columns:1fr 1fr}
+}
+@media (max-width:767px){
+  .wrap{padding:0 16px}
+  section{padding:52px 0}
+  .hdr .wrap{height:auto;flex-wrap:wrap;gap:10px;padding-top:10px;padding-bottom:10px}
+  .hdr .search{order:5;flex-basis:100%}
+  .logo{margin-right:auto}
+  .logo img{height:22px}
+  .cat-btn span,.cart-btn .lbl{display:none}
+  .cat-btn{width:44px;padding:0;justify-content:center;height:44px}
+  .cart-btn{height:44px;padding:0 10px}
+  .icon-btn{width:44px;height:44px}
+  .hdr .search-box{height:44px}
+  .mega .wrap{grid-template-columns:1fr;gap:24px;max-height:70dvh;overflow:auto}
+  .mega ul{columns:1}
+  .hero{padding:28px 0 44px}
+  .hero .sub{font-size:16px;margin:14px 0 20px}
+  .hero .search-box{height:56px}
+  .hero .search-box .go{padding:0 14px;height:44px}
+  .hero .search-box .go span{display:none}
+  .hero .search-box i.lead{display:none}
+  .hero .search-box input{padding-left:14px;font-size:16px}
+  .ural .facts{grid-template-columns:1fr 1fr 1fr;border-left:0}
+  .ural .facts div{padding:0 12px 0 0}
+  .ural .facts b{font-size:24px}
+  .ural .facts span{font-size:12.5px}
+  .brands,.types{grid-template-columns:1fr 1fr;grid-auto-rows:minmax(110px,auto);gap:10px}
+  .bt.big{grid-row:auto;padding:20px}
+  .bt.big ul{grid-template-columns:1fr}
+  .bt.big li:nth-child(n+5){display:none}
+  .bt.wide{grid-column:span 1}
+  .bt .n{font-size:21px}
+  .ty.span2 .n{font-size:18px}
+  .ty.span2 img{max-width:52%}
+  .ty .n{font-size:15.5px}
+  .otable th:nth-child(2),.otable td:nth-child(2){display:none}
+  .otable td,.otable th{padding-left:12px;padding-right:12px}
+  .otable .stk-m{display:block!important}
+  .otable .add{width:42px;height:40px;padding:0;justify-content:center}
+  .otable .add span{display:none}
+  .otable .add i{font-size:19px}
+  body.is-home .hdr .search{display:none}
+  .pts{grid-template-columns:1fr;gap:22px}
+  .form-card{padding:20px}
+  .zero{min-height:0;gap:28px;padding:24px}
+  .arts{grid-template-columns:1fr}
+  .art-l{font-size:16px}
+  .clusters{columns:1}
+  .lhead{display:none}
+  .lrow{grid-template-columns:64px minmax(0,1fr);grid-template-areas:"th nm" "th br" "pr act";row-gap:6px;padding:14px}
+  .lrow .th{grid-area:th;align-self:start}
+  .lrow .nmw{grid-area:nm}
+  .lrow .brs{grid-area:br}
+  .lrow .stkc{display:none}
+  .lrow .pr{grid-area:pr;text-align:left}
+  .lrow .act{grid-area:act}
+  .srow{grid-template-columns:1fr auto auto;gap:10px;padding:10px 14px}
+  .srow .sp0,.srow .stkc{display:none}
+  .p-grid{grid-template-columns:1fr}
+  .thumbs button{width:62px;height:62px}
+  footer .top{grid-template-columns:1fr;gap:28px}
+  .modal{padding:22px}
+}
+</style>
+</head>
+<body>
+
+<div class="proto" id="proto"><div class="wrap">
+  <i class="ph ph-flask"></i>
+  <span><b>Прототип</b> нового сайта aex59.ru. Товары, цены и остатки взяты с текущего сайта 27.09.2026.</span>
+  <button aria-label="Скрыть" onclick="this.closest('.proto').remove()"><i class="ph ph-x"></i></button>
+</div></div>
+
+<div class="util"><div class="wrap">
+  <span class="status" id="st-util"><span class="dot"></span><span></span></span>
+  <span>Пермь, ул. Василия Васильева, 11а</span>
+  <span class="sp"></span>
+  <a href="#/" data-scroll="b2b">Автопаркам</a>
+  <a href="#/" data-scroll="deliv">Доставка и оплата</a>
+  <a href="#" data-demo>Возврат</a>
+  <a href="#/" data-scroll="articles">Статьи</a>
+  <a href="#" data-demo>О компании</a>
+  <a href="#/" data-scroll="contacts">Контакты</a>
+</div></div>
+
+<header class="hdr" id="hdr">
+  <div class="wrap">
+    <a class="logo" href="#/" aria-label="Автоэксклюзив, на главную"><img src="img/logo-dark.png" alt="Автоэксклюзив"></a>
+    <button class="cat-btn" id="catBtn" aria-expanded="false"><i class="ph ph-list"></i><span>Каталог</span></button>
+    <div class="search" data-search>
+      <div class="search-box">
+        <i class="ph ph-magnifying-glass lead"></i>
+        <input type="search" placeholder="Артикул или название" aria-label="Поиск по каталогу" autocomplete="off">
+        <button class="go" type="button">Найти</button>
+      </div>
+      <div class="sugg"></div>
+    </div>
+    <div class="hdr-phone"><a href="tel:+73422485948">+7 (342) 248-59-48</a><span><a href="tel:+73422569555" style="font-size:12.5px;font-weight:500">+7 (342) 256-95-55</a></span></div>
+    <a class="icon-btn m-only" href="tel:+73422485948" aria-label="Позвонить"><i class="ph ph-phone"></i></a>
+    <button class="cart-btn" id="cartBtn" aria-label="Корзина"><i class="ph ph-shopping-cart-simple"></i><span class="lbl">Корзина</span><span class="cnt" id="cartCnt"></span></button>
+  </div>
+  <div class="mega" id="mega"><div class="wrap">
+    <div><h4>По технике</h4><ul id="megaBrands"></ul></div>
+    <div><h4>По типу детали</h4><ul id="megaTypes"></ul></div>
+  </div></div>
+</header>
+
+<main id="app"></main>
+
+<footer>
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <img src="img/logo-light.png" alt="Автоэксклюзив" style="height:26px;width:auto">
+        <p style="margin:16px 0 0;max-width:32ch">Запчасти для грузовых автомобилей, автобусов и прицепов. Пермь, с 2005 года.</p>
+        <a class="ph-big" href="tel:+73422485948">+7 (342) 248-59-48</a>
+        <a href="tel:+73422569555">+7 (342) 256-95-55</a>
+      </div>
+      <div><h5>Каталог</h5><ul id="footBrands"></ul></div>
+      <div><h5>Покупателям</h5><ul>
+        <li><a href="#/" data-scroll="deliv">Доставка и оплата</a></li>
+        <li><a href="#" data-demo>Возврат товара</a></li>
+        <li><a href="#/" data-scroll="articles">Статьи</a></li>
+        <li><a href="#" data-demo>Отзывы</a></li>
+        <li><a href="#" data-demo>Личный кабинет</a></li>
+      </ul></div>
+      <div><h5>Компания</h5><ul>
+        <li><a href="#" data-demo>О компании</a></li>
+        <li><a href="#/" data-scroll="b2b">Автопаркам и организациям</a></li>
+        <li><a href="#/" data-scroll="contacts">Контакты</a></li>
+        <li><a href="mailto:autobrig59@mail.ru">autobrig59@mail.ru</a></li>
+        <li><a href="https://vk.com/aex59" target="_blank" rel="noopener">ВКонтакте</a></li>
+      </ul></div>
+    </div>
+    <div class="bottom">
+      <span>© 2005-2026 ООО «Автоэксклюзив»</span>
+      <span>ИНН 5904190604</span>
+      <span>ОГРН 1085904012920</span>
+      <span class="sp"></span>
+      <a href="#" data-demo>Оферта</a>
+      <a href="#" data-demo>Политика конфиденциальности</a>
+    </div>
+  </div>
+</footer>
+
+<div class="ovl" id="ovl"></div>
+<aside class="drawer" id="drawer" aria-label="Корзина"></aside>
+<div class="modal" id="modal" role="dialog" aria-modal="true"></div>
+<div class="toast" id="toast"><i class="ph-fill ph-check-circle"></i><span></span></div>
+
+<script>
+/* ---------- данные (с aex59.ru, 27.09.2026) ---------- */
+const BRANDS=[
+  {id:'kamaz',n:'КАМАЗ',c:6139},{id:'maz',n:'МАЗ',c:2408},{id:'ural',n:'УРАЛ',c:1542,tag:'Официальный представитель'},
+  {id:'yamz',n:'ЯМЗ',c:1342},{id:'zil',n:'ЗИЛ',c:705},{id:'kraz',n:'КрАЗ',c:379},{id:'gaz',n:'ГАЗ',c:373},
+  {id:'uaz',n:'УАЗ',c:129},{id:'weichai',n:'Weichai',c:62},{id:'bus',n:'Автобусы',c:564},{id:'trailer',n:'Прицепы',c:240}
+];
+const TYPES=[
+  {n:'Пневматика',c:229,img:'pgu-zavod',cls:'span2'},{n:'Электрика',c:1503,img:'motor-otop'},{n:'Подшипники',c:539,img:'mufta'},
+  {n:'Фильтры',c:241},{n:'Метизы',c:650},{n:'ГСМ и автохимия',c:165},{n:'Ремни, шланги, трубки',c:882,img:'shlang-gur'},
+  {n:'Инструмент',c:1793},{n:'Сальники, манжеты, РТИ',c:301},{n:'Оборудование для сервиса',c:105},{n:'Аксессуары',c:382}
+];
+const KAMAZ=[
+  {h:'Двигатель и системы',g:[['10','Двигатель',605],['10-1','ПЖД',211],['10-2','Cummins',167],['11','Топливная система',612],['12','Система выпуска газов',260],['13','Система охлаждения',308]]},
+  {h:'Трансмиссия',g:[['16','Сцепление',196,1],['17','Коробка передач',386],['17','Коробка передач ZF',60],['18','Раздаточная коробка',134],['22','Карданная передача',106],['42','Коробка отбора мощности',54]]},
+  {h:'Мосты и подвеска',g:[['23','Передний мост',79],['24','Задний мост',194],['25','Средний мост',111],['29','Подвеска',358],['30','Передняя ось',62],['31','Колёса и ступицы',157]]},
+  {h:'Управление и тормоза',g:[['34','Рулевое управление',283],['35','Тормоза',563]]},
+  {h:'Электрооборудование',g:[['37','Электрооборудование',314],['38','Приборы',45]]},
+  {h:'Кабина',g:[['50','Кабина',130],['51','Основание кабины',21],['52','Ветровое окно',45],['53','Передок кабины',12],['54','Боковина кабины',9],['57','Крыша кабины',9],['61','Боковая дверь',62],['68','Сиденье',8],['81','Вентиляция и отопление',23],['82','Принадлежности кабины',60],['84','Оперение кабины',156]]},
+  {h:'Рама и сцепные устройства',g:[['27','Седельное и буксирное устройство',66],['28','Рама',44]]},
+  {h:'Платформа',g:[['85','Платформа',41],['86','Подъёмное устройство платформы',61]]},
+  {h:'Прочее',g:[['39','Инструмент и принадлежности',44],['45','Лебёдка',1]]}
+];
+const GROUPS={'kamaz/16':'16 Сцепление','kamaz/10':'10 Двигатель','kamaz/35':'35 Тормоза','kamaz/34':'34 Рулевое управление','kamaz/10-1':'10-1 ПЖД','elektrika':'Электрика'};
+const SUBS={all:'Все',disks:'Диски и корзины',pgu:'Пневмогидроусилители',vyzh:'Выжимной механизм',priv:'Привод сцепления'};
+const K='КАМАЗ ПАО', N='';
+const P=[
+ {id:'shatun-740',g:'kamaz/10',n:'Шатун КАМАЗ',art:'740-1004045',imgs:['shatun-2','shatun-3','shatun-4','shatun-1'],use:'Автомобили КАМАЗ, двигатель 740',
+  specs:[['Вес','3,2 кг'],['Габариты','330 × 140 × 60 мм']],
+  o:[{b:K,p:15245,s:12},{b:'OE GERMANY',p:13700,s:3,m:'13 0310 740000'},{b:N,p:13700,s:3},{b:'АЛЬТЕРНАТИВА',p:9550,s:2}]},
+ {id:'disk-205',g:'kamaz/16',sub:'disks',n:'Диск сцепления ведомый КАМАЗ (205)',art:'1878000205',
+  o:[{b:'STARCO',p:16765,s:3},{b:N,p:15680,s:5},{b:N,p:10360,s:5},{b:N,p:9308,s:3},{b:'SACHS (Китай)',p:7150,s:1}]},
+ {id:'disk-206',g:'kamaz/16',sub:'disks',n:'Диск сцепления ведомый КАМАЗ (206)',art:'1878000206',
+  o:[{b:'STARCO',p:16215,s:4,m:'SPD430206'},{b:N,p:14274,s:1,m:'16118000206'},{b:N,p:10900,s:2},{b:N,p:8944,s:1},{b:'SACHS (Китай)',p:7150,s:3}]},
+ {id:'disk-evro3',g:'kamaz/16',sub:'disks',n:'Диск сцепления ведомый КАМАЗ Евро-3 усиленный',art:'1878085641',imgs:['disk-evro3'],
+  o:[{b:'STARCO',p:16190,s:2,m:'аналог 1878007209'},{b:'КИТАЙ',p:9750,s:2}]},
+ {id:'disk-14-1601130',g:'kamaz/16',sub:'disks',n:'Диск сцепления ведомый КАМАЗ',art:'14-1601130-01',imgs:['disk-14-1601130-01'],o:[{b:K,p:7970,s:4}]},
+ {id:'disk-142',g:'kamaz/16',sub:'disks',n:'Диск сцепления ведомый КАМАЗ усиленный',art:'142-1601130-01',o:[{b:K,p:5509,s:4}]},
+ {id:'disk-promezh',g:'kamaz/16',sub:'disks',n:'Диск сцепления промежуточный КАМАЗ',art:'14-1601094-10',imgs:['disk-promezh'],o:[{b:K,p:5877,s:4}]},
+ {id:'korzina-14',g:'kamaz/16',sub:'disks',n:'Диск сцепления нажимной КАМАЗ (корзина)',art:'14-1601090-10',imgs:['korzina-14-1601090'],
+  o:[{b:K,p:25291,s:1},{b:'ТРАНСМАШ',p:21300,s:1,m:'14-1601090-10ТМ'}]},
+ {id:'korzina-evro-118',g:'kamaz/16',sub:'disks',n:'Диск сцепления нажимной КАМАЗ Евро (корзина)',art:'3482083118',
+  o:[{b:'STARCO',p:26985,s:3,m:'SPB430118'},{b:N,p:18750,s:1},{b:N,p:18265,s:2},{b:N,p:12990,s:2,m:'16102083118'}]},
+ {id:'korzina-zf-219',g:'kamaz/16',sub:'disks',n:'Диск сцепления нажимной КАМАЗ Евро (корзина) КПП ZF',art:'3482083219',
+  o:[{b:'STARCO',p:27391,s:2,m:'SPB430032'},{b:N,p:25350,s:1},{b:'WIRKSAM',p:19492,s:1},{b:'FENOX',p:15559,s:1}]},
+ {id:'pgu-11-40',g:'kamaz/16',sub:'pgu',n:'Пневмогидроусилитель сцепления КАМАЗ',art:'11-1602410-40',kw:'ПГУ',
+  o:[{b:N,p:17940,s:4,m:'970 051 423 0'},{b:'РОСТАР',p:16713,s:1,m:'17100-1609000'},{b:'HOTTEKE',p:7730,s:3,m:'HTFS040'},{b:N,p:4780,s:2}]},
+ {id:'pgu-zavod',g:'kamaz/16',sub:'pgu',n:'Пневмогидроусилитель сцепления КАМАЗ, завод',art:'5320-1609510-40',kw:'ПГУ',imgs:['pgu-zavod'],o:[{b:N,p:18967,s:3}]},
+ {id:'pgu-8250',g:'kamaz/16',sub:'pgu',n:'Пневмогидроусилитель сцепления КАМАЗ, МАЗ, УРАЛ',art:'8250-1609200',kw:'ПГУ',o:[{b:N,p:16860,s:2}]},
+ {id:'pgu-htfs204',g:'kamaz/16',sub:'pgu',n:'Пневмогидроусилитель КАМАЗ 6520, аналог WABCO 9700512040',art:'HTFS204',kw:'ПГУ 6520',imgs:['pgu-htfs204'],o:[{b:N,p:9090,s:4}]},
+ {id:'pgu-6520-4230',g:'kamaz/16',sub:'pgu',n:'Пневмогидроусилитель КАМАЗ 6520, аналог WABCO 9700514230',art:'9700514230',kw:'ПГУ 6520',imgs:['pgu-htfs423'],
+  o:[{b:'HOTTEKE',p:8275,s:4,m:'HTFS423'},{b:'FENOX',p:5218,s:1,m:'9700514230F'}]},
+ {id:'kolco-14-1601120',g:'kamaz/16',sub:'vyzh',n:'Кольцо упорное нажимного диска КАМАЗ (пятак)',art:'14-1601120',imgs:['kolco-pyatak'],o:[{b:K,p:2451,s:4}]},
+ {id:'vilka-16',g:'kamaz/16',sub:'vyzh',n:'Вилка выжимного подшипника КАМАЗ',art:'16-1601203',imgs:['vilka-podsh'],o:[{b:K,p:3878,s:2}]},
+ {id:'val-vilki',g:'kamaz/16',sub:'vyzh',n:'Вал вилки выключения сцепления КАМАЗ',art:'14-1601215',imgs:['val-vilki'],o:[{b:K,p:5374,s:3}]},
+ {id:'vtulka-vala',g:'kamaz/16',sub:'vyzh',n:'Втулка вала вилки сцепления КАМАЗ',art:'14-1601216',o:[{b:K,p:400,s:4}]},
+ {id:'mufta-185',g:'kamaz/16',sub:'vyzh',n:'Муфта выжимного подшипника КАМАЗ, без подшипника',art:'14-1601185',imgs:['mufta'],o:[{b:N,p:260,s:10}]},
+ {id:'bachok-gcs',g:'kamaz/16',sub:'priv',n:'Бачок цилиндра сцепления КАМАЗ',art:'5320-1602560',imgs:['bachok'],o:[{b:'АЛЬТЕРНАТИВА',p:85,s:2}]},
+ {id:'pedal-6520',g:'kamaz/16',sub:'priv',n:'Педаль сцепления КАМАЗ в сборе, нового образца',art:'6520-1602008',o:[{b:N,p:16773,s:1}]},
+ {id:'manzheta-gcs',g:'kamaz/16',sub:'priv',n:'Манжета поршня главного цилиндра сцепления КАМАЗ',art:'5320-1602517',o:[{b:N,p:10,s:670}]},
+ {id:'nakladka',g:'kamaz/16',sub:'priv',n:'Накладка сцепления КАМАЗ сверлёная',art:'14-1601138-31',o:[{b:N,p:440,s:6}]},
+ {id:'gayka-lapki',g:'kamaz/16',sub:'priv',n:'Гайка регулировочная сцепления КАМАЗ (лапки)',art:'14-1601109',o:[{b:N,p:60,s:74}]},
+ {id:'energo',g:'kamaz/35',n:'Энергоаккумулятор ЗИЛ, КАМАЗ тип 24',art:'100-3519200',imgs:['energo'],o:[{b:'РААЗ',p:8060,s:1}]},
+ {id:'pzhd-klapan',g:'kamaz/10-1',n:'Электропневмоклапан ПЖД в сборе',art:'ПЖД30-1015500-04',imgs:['pzhd-klapan'],o:[{b:N,p:8765,s:1}]},
+ {id:'shlang-gur',g:'kamaz/34',n:'Шланг ГУР КАМАЗ Евро',art:'65115-3408020-50',imgs:['shlang-gur'],o:[{b:N,p:750,s:1}]},
+ {id:'motor-otop',g:'elektrika',n:'Электродвигатель отопителя 24 В с крыльчаткой',art:'МЭ-255-05',imgs:['motor-otop'],o:[{b:N,p:1505,s:1}]}
+];
+const byId=Object.fromEntries(P.map(p=>[p.id,p]));
+const HERO=['shatun-740','disk-evro3','pgu-htfs204','kolco-14-1601120'];
+const ARTS=['КПП-15 КАМАЗ: устройство, характеристики и схема','Как подобрать запчасти для грузового автомобиля','Шланг ГУР: характеристики, эксплуатация и уход','Топливный бак КАМАЗ: устройство и эксплуатация'];
+
+/* ---------- утилиты ---------- */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const nbsp=' ';
+const rub=n=>new Intl.NumberFormat('ru-RU').format(n)+nbsp+'₽';
+const pcs=n=>new Intl.NumberFormat('ru-RU').format(n)+nbsp+'шт';
+const plural=(n,a,b,c)=>{n=Math.abs(n)%100;const n1=n%10;if(n>10&&n<20)return c;if(n1>1&&n1<5)return b;if(n1===1)return a;return c};
+const img=id=>`img/p/${id}.jpg`;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const norm=s=>String(s).toLowerCase().replace(/ё/g,'е').replace(/[\s\-\.\/,()«»"]/g,'');
+const isOrig=o=>o.b===K;
+const sortOffers=o=>[...o].sort((a,b)=>(isOrig(b)-isOrig(a))||(b.p-a.p));
+const minP=p=>Math.min(...p.o.map(o=>o.p));
+const sumS=p=>p.o.reduce((a,o)=>a+o.s,0);
+const brandLabel=o=>o.b?esc(o.b):'<span class="noname">Производитель не указан</span>';
+const thumb=(p,cls='th')=>`<div class="${cls}">${p.imgs?`<img src="${img(p.imgs[0])}" alt="" loading="lazy">`:'<i class="ph ph-camera-slash"></i>'}</div>`;
+
+/* часы работы, время Перми (UTC+5) */
+const SCHED={1:[9,18],2:[9,18],3:[9,18],4:[9,18],5:[9,18],6:[10,16],0:null};
+const DAYW=['в воскресенье','в понедельник','во вторник','в среду','в четверг','в пятницу','в субботу'];
+function permNow(){const d=new Date();return new Date(d.getTime()+d.getTimezoneOffset()*60000+5*3600000)}
+function shopStatus(){
+  const n=permNow(),d=n.getDay(),h=n.getHours()+n.getMinutes()/60,s=SCHED[d];
+  if(s&&h>=s[0]&&h<s[1])return{open:true,t:`Открыто до ${s[1]}:00`,pick:`сегодня до ${s[1]}:00`};
+  for(let i=0;i<8;i++){const dd=(d+i)%7,sc=SCHED[dd];if(!sc)continue;
+    if(i===0&&h<sc[0])return{open:false,t:`Откроемся сегодня в ${sc[0]}:00`,pick:`сегодня с ${sc[0]}:00`};
+    if(i>0){const w=i===1?'завтра':DAYW[dd];return{open:false,t:`Закрыто, откроемся ${w} в ${sc[0]}:00`,pick:`${w} с ${sc[0]}:00`}}}
+}
+function paintStatus(){const s=shopStatus();$$('#st-util').forEach(e=>{e.classList.toggle('open',s.open);e.lastElementChild.textContent=s.t})}
+
+/* toast */
+let tt;function toast(t){const e=$('#toast');e.lastElementChild.textContent=t;e.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('show'),2600)}
+const DEMO='В прототипе наполнены главная, КАМАЗ, раздел «16 Сцепление» и карточки товаров';
+
+/* ---------- корзина ---------- */
+let cart=[];try{cart=JSON.parse(localStorage.getItem('aex-cart')||'[]')}catch(e){}
+function saveCart(){try{localStorage.setItem('aex-cart',JSON.stringify(cart))}catch(e){}paintCart()}
+const ckey=(id,i)=>id+'#'+i;
+function inCart(id,i){return cart.find(c=>c.k===ckey(id,i))}
+function addToCart(id,i,btn){
+  const p=byId[id],o=p.o[i];let c=inCart(id,i);
+  if(c)c.q=Math.min(c.q+1,o.s);else cart.push({k:ckey(id,i),id,i,q:1});
+  saveCart();toast(`В корзине: ${p.n}${o.b?', '+o.b:''}`);
+  $$(`[data-add="${ckey(id,i)}"]`).forEach(b=>{b.classList.add('in');b.innerHTML='<i class="ph ph-check"></i><span>В корзине</span>'});
+}
+function cartTotal(){return cart.reduce((a,c)=>a+byId[c.id].o[c.i].p*c.q,0)}
+function paintCart(){const n=cart.reduce((a,c)=>a+c.q,0);$('#cartCnt').textContent=n||'';if($('#drawer').classList.contains('open')&&!$('#drawer').dataset.mode)renderDrawer()}
+function renderDrawer(){
+  const d=$('#drawer');d.dataset.mode='';
+  const tot=cartTotal(),left=50000-tot;
+  d.innerHTML=`<div class="dr-h"><h3>Корзина</h3><button class="x" data-close aria-label="Закрыть"><i class="ph ph-x"></i></button></div>
+  <div class="dr-b">${cart.length?cart.map(c=>{const p=byId[c.id],o=p.o[c.i];return`<div class="ci">${thumb(p)}<div>
+    <div class="t">${esc(p.n)}</div><div class="s"><span class="mono">${esc(p.art)}</span>${o.b?' · '+esc(o.b):''}</div>
+    <div class="r"><div style="display:flex;align-items:center"><div class="qty"><button data-d="-1" data-k="${c.k}" aria-label="Меньше"><i class="ph ph-minus"></i></button><span>${c.q}</span><button data-d="1" data-k="${c.k}" aria-label="Больше"><i class="ph ph-plus"></i></button></div>
+    <button class="rm" data-rm="${c.k}"><i class="ph ph-trash"></i>Убрать</button></div><b class="num">${rub(o.p*c.q)}</b></div></div></div>`}).join('')
+    :`<div class="empty-state" style="padding:36px 0"><i class="ph ph-shopping-cart-simple"></i><h3>Корзина пустая</h3><p>Найдите деталь по артикулу или выберите технику в каталоге.</p><a class="btn btn-line" href="#/kamaz" data-close>Открыть каталог КАМАЗ</a></div>`}</div>
+  ${cart.length?`<div class="dr-f"><div class="sum"><span>Итого</span><b class="num">${rub(tot)}</b></div>
+    <p class="free">${left>0?`До бесплатной доставки по России: ${rub(left)}`:'Доставка по России бесплатная'}</p>
+    <button class="btn btn-accent" style="width:100%" id="toCheckout">Оформить заказ</button></div>`:''}`;
+}
+function renderCheckout(){
+  const d=$('#drawer');d.dataset.mode='co';
+  d.innerHTML=`<div class="dr-h"><h3>Оформление</h3><button class="x" data-close aria-label="Закрыть"><i class="ph ph-x"></i></button></div>
+  <form class="dr-b" id="coForm" novalidate style="padding-top:18px">
+    <div class="fld"><label>Покупатель</label><div class="seg" id="who"><button type="button" class="on" data-v="p">Частное лицо</button><button type="button" data-v="o">Организация</button></div></div>
+    <div class="fld" id="innF" style="display:none"><label for="co-inn">ИНН организации</label><input id="co-inn" inputmode="numeric" placeholder="10 или 12 цифр"><span class="help">Выставим счёт на оплату, документы приложим к заказу</span></div>
+    <div class="fld"><label for="co-name">Имя</label><input id="co-name" autocomplete="name"></div>
+    <div class="fld"><label for="co-tel">Телефон</label><input id="co-tel" type="tel" autocomplete="tel" placeholder="+7"><span class="err">Укажите телефон, по нему подтвердим заказ</span></div>
+    <div class="fld"><label for="co-way">Получение</label><select id="co-way"><option>Самовывоз, Пермь, ул. Василия Васильева, 11а</option><option>Самовывоз, Полазна</option><option>Курьер по Перми</option><option>Транспортная компания по России</option></select></div>
+    <div class="fld"><label for="co-com">Комментарий</label><textarea id="co-com" style="min-height:80px" placeholder="VIN, модель, удобное время звонка"></textarea></div>
+  </form>
+  <div class="dr-f"><div class="sum"><span>К оплате</span><b class="num">${rub(cartTotal())}</b></div><p class="free">Оплата картой, наличными, по СБП или по счёту</p>
+  <button class="btn btn-accent" style="width:100%" id="coSend">Отправить заказ</button></div>`;
+}
+function openDrawer(){renderDrawer();$('#drawer').classList.add('open');$('#ovl').classList.add('open')}
+function closeAll(){$('#drawer').classList.remove('open');$('#modal').classList.remove('open');$('#ovl').classList.remove('open');$('#drawer').dataset.mode=''}
+
+/* ---------- модалки ---------- */
+function openModal(html){const m=$('#modal');m.innerHTML=`<button class="x" data-close aria-label="Закрыть"><i class="ph ph-x"></i></button>`+html;m.classList.add('open');$('#ovl').classList.add('open');setTimeout(()=>{const f=m.querySelector('textarea,input');f&&f.focus()},60)}
+function listModal(){openModal(`<h3>Отправить список деталей</h3><p class="hint">Напишите номера или названия деталей, приложите фото или файл Excel. Проверим склад и перезвоним с ценой.</p>
+  <form id="listForm" novalidate>
+  <div class="fld"><label for="lf-t">Список деталей</label><textarea id="lf-t" placeholder="740-1004045, 2 шт&#10;Диск сцепления КАМАЗ Евро-3&#10;VIN или модель машины, если знаете"></textarea></div>
+  <div class="fld"><label class="drop" for="lf-f"><i class="ph ph-paperclip"></i><span id="lf-fn">Прикрепить фото или файл</span></label><input id="lf-f" type="file" class="sr" accept="image/*,.xls,.xlsx,.csv,.pdf"></div>
+  <div class="fld"><label for="lf-tel">Телефон</label><input id="lf-tel" type="tel" autocomplete="tel" placeholder="+7"><span class="err">Укажите телефон, чтобы мы могли ответить</span></div>
+  <button class="btn btn-accent" style="width:100%">Отправить список</button></form>`)}
+function oneClick(id){const p=byId[id];openModal(`<h3>Купить в один клик</h3><p class="hint">${esc(p.n)}, <span class="mono">${esc(p.art)}</span>. Оставьте телефон: менеджер перезвонит, поможет выбрать вариант и оформит заказ.</p>
+  <form id="ocForm" novalidate><div class="fld"><label for="oc-tel">Телефон</label><input id="oc-tel" type="tel" autocomplete="tel" placeholder="+7"><span class="err">Укажите телефон</span></div>
+  <button class="btn btn-accent" style="width:100%">Жду звонка</button></form>`)}
+function doneHtml(h,t){const s=shopStatus();return`<div class="done"><i class="ph-fill ph-check-circle"></i><h3>${h}</h3><p>${t} ${s.open?'Сейчас магазин открыт.':s.t+'.'}</p></div>`}
+function checkTel(inp){const ok=inp.value.replace(/\D/g,'').length>=10;inp.closest('.fld').classList.toggle('bad',!ok);if(!ok)inp.focus();return ok}
+
+/* ---------- поиск ---------- */
+function search(q){const n=norm(q);if(!n)return[];const words=q.toLowerCase().replace(/ё/g,'е').split(/\s+/).filter(Boolean);
+  return P.filter(p=>norm(p.art).includes(n)||p.o.some(o=>o.m&&norm(o.m).includes(n))||words.every(w=>(p.n+' '+(p.kw||'')).toLowerCase().replace(/ё/g,'е').includes(w)))}
+function bindSearch(root){
+  const inp=$('input',root),box=$('.sugg',root),go=$('.go',root);let act=-1;
+  const run=()=>{const q=inp.value.trim();if(!q){inp.focus();return}box.classList.remove('open');location.hash='#/search/'+encodeURIComponent(q)};
+  inp.addEventListener('input',()=>{const q=inp.value.trim();act=-1;if(q.length<2){box.classList.remove('open');return}
+    const r=search(q);box.innerHTML=r.length?r.slice(0,6).map(p=>`<a href="#/p/${p.id}">${thumb(p)}<div><div class="t">${esc(p.n)}</div><div class="a mono">${esc(p.art)}${p.o.length>1?` · ${p.o.length} ${plural(p.o.length,'вариант','варианта','вариантов')}`:''}</div></div><div class="p num">${p.o.length>1?'от ':''}${rub(minP(p))}</div></a>`).join('')+`<a class="all" href="#/search/${encodeURIComponent(q)}"><span>Все результаты</span><i class="ph ph-arrow-right"></i></a>`
+      :`<div class="empty">В прототипе нет такой позиции. Попробуйте <b class="mono">740-1004045</b> или <b class="mono">1878000205</b>.</div>`;box.classList.add('open')});
+  inp.addEventListener('keydown',e=>{const items=$$('a',box);
+    if(e.key==='ArrowDown'||e.key==='ArrowUp'){if(!box.classList.contains('open'))return;e.preventDefault();act=(act+(e.key==='ArrowDown'?1:-1)+items.length)%items.length;items.forEach((a,i)=>a.classList.toggle('act',i===act))}
+    else if(e.key==='Enter'){e.preventDefault();if(act>=0&&items[act]){location.hash=items[act].getAttribute('href');box.classList.remove('open')}else run()}
+    else if(e.key==='Escape')box.classList.remove('open')});
+  go.addEventListener('click',run);
+  box.addEventListener('click',e=>{if(e.target.closest('a'))box.classList.remove('open')});
+}
+document.addEventListener('click',e=>{$$('[data-search]').forEach(r=>{if(!r.contains(e.target))$('.sugg',r).classList.remove('open')})});
+
+/* ---------- таблица предложений ---------- */
+function offersTable(p){
+  const rows=sortOffers(p.o.map((o,i)=>({...o,i})));const min=minP(p);
+  return`<table class="otable"><thead><tr><th>Производитель</th><th>Наличие</th><th style="text-align:right">Цена</th><th></th></tr></thead><tbody>
+  ${rows.map(o=>{const c=inCart(p.id,o.i);return`<tr class="${o.p===min&&p.o.length>1?'best':''}"><td class="br">${brandLabel(o)}${isOrig(o)?'<span class="badge-o">Оригинал</span>':''}${o.m?`<small class="mono">${esc(o.m)}</small>`:''}<small class="stk stk-m" style="display:none">${pcs(o.s)}</small></td>
+    <td><span class="stk">${pcs(o.s)}</span></td><td class="pr num">${rub(o.p)}</td>
+    <td class="act"><button class="add${c?' in':''}" data-add="${ckey(p.id,o.i)}">${c?'<i class="ph ph-check"></i><span>В корзине</span>':'<i class="ph ph-shopping-cart-simple"></i><span>В корзину</span>'}</button></td></tr>`}).join('')}
+  </tbody></table>`;
+}
+
+/* ---------- экраны ---------- */
+function vHome(){
+  const k=KAMAZ.flatMap(c=>c.g).filter(g=>['Двигатель','Топливная система','Сцепление','Коробка передач','Задний мост','Подвеска','Тормоза'].includes(g[1]));
+  const pick=byId['shatun-740'];
+  return`<div class="view">
+  <section class="hero"><div class="wrap">
+    <div>
+      <h1>Запчасти для КАМАЗ, МАЗ и УРАЛ со склада в Перми</h1>
+      <p class="sub">Больше 20${nbsp}000 позиций в каталоге. Оригинал и аналоги рядом, с ценой и остатком на складе.</p>
+      <div class="search" data-search>
+        <div class="search-box"><i class="ph ph-magnifying-glass lead"></i><input type="search" placeholder="Артикул или название детали" aria-label="Поиск детали" autocomplete="off"><button class="go" type="button"><i class="ph ph-magnifying-glass"></i><span>Найти деталь</span></button></div>
+        <div class="sugg"></div>
+      </div>
+      <div class="chips">Например:${['740-1004045','1878000205','ПГУ 6520','5320-1602560'].map(q=>`<button class="chip" data-q="${q}">${q}</button>`).join('')}</div>
+      <div class="alt"><span class="or">Нет номера детали?</span><button class="btn btn-line" data-list><i class="ph ph-paperclip"></i>Отправить список деталей</button></div>
+    </div>
+    <div>
+      <div class="stock-head"><span>Сейчас на складе</span><a class="arrow-link" href="#/kamaz/16">Сцепление КАМАЗ <i class="ph ph-arrow-right"></i></a></div>
+      <div class="stock-grid">${HERO.map(id=>{const p=byId[id];return`<a class="sc" href="#/p/${id}"><div class="im"><img src="${img(p.imgs[0])}" alt="${esc(p.n)}"></div>
+        <div class="art mono">${esc(p.art)}</div><div class="nm">${esc(p.n)}</div><div class="row"><span class="pr num">${p.o.length>1?'<small style="font-weight:500;font-size:13px">от </small>':''}${rub(minP(p))}</span><span class="stk">${pcs(sumS(p))}</span></div></a>`}).join('')}</div>
+    </div>
+  </div></section>
+
+  <section class="ural"><div class="wrap">
+    <div class="seal"><i class="ph-fill ph-seal-check"></i><div>
+      <h2>Официальный представитель Автомобильного завода «Урал» в Пермском крае</h2>
+      <p>Работаем с заводом по представительскому соглашению с 2014 года.</p>
+      <a class="arrow-link" href="#" data-demo>Запчасти УРАЛ <i class="ph ph-arrow-right"></i></a></div></div>
+    <div class="facts">
+      <div><b>2005</b><span>открыли магазин в Перми</span></div>
+      <div><b>20${nbsp}000+</b><span>позиций в каталоге</span></div>
+      <div><b>2</b><span>пункта выдачи: Пермь и Полазна</span></div>
+    </div>
+  </div></section>
+
+  <section id="brands"><div class="wrap">
+    <div class="sec-head"><h2>Выберите технику</h2></div>
+    <div class="brands">
+      <div class="bt big"><a href="#/kamaz" class="bt-link"><div class="n">КАМАЗ</div><div class="c">${new Intl.NumberFormat('ru-RU').format(6139)} позиций в 42 узлах</div><i class="ph ph-arrow-right go"></i></a>
+        <ul>${k.map(g=>`<li><a href="${g[3]?'#/kamaz/16':'#'}" ${g[3]?'':'data-demo'}><span class="mono">${g[0]}</span>${g[1]}</a></li>`).join('')}<li><a href="#/kamaz"><span class="mono"></span>Все 42 узла</a></li></ul></div>
+      ${BRANDS.slice(1).map(b=>`<a class="bt${['bus','trailer'].includes(b.id)?' wide':''}" href="#" data-demo><div><div class="n">${b.n}</div>${b.tag?`<span class="tag">${b.tag}</span>`:''}</div><div class="c mono">${new Intl.NumberFormat('ru-RU').format(b.c)} поз.</div><i class="ph ph-arrow-right go"></i></a>`).join('')}
+    </div>
+  </div></section>
+
+  <section class="compare"><div class="wrap">
+    <div>
+      <h2>Оригинал и аналоги на одной странице</h2>
+      <p class="lead-p">Под одним номером детали собраны все варианты со склада: заводской оригинал и аналоги разных производителей. Сравните цену и наличие, выберите подходящий.</p>
+      <a class="arrow-link link" href="#/p/shatun-740">Открыть карточку шатуна <i class="ph ph-arrow-right"></i></a>
+    </div>
+    <div class="offers">
+      <div class="offers-top"><div class="th"><img src="${img('shatun-2')}" alt=""></div><div><b>${esc(pick.n)} <span class="mono" style="font-size:14px;color:var(--ink-2)">${pick.art}</span></b><span>${pick.o.length} варианта на складе в Перми</span></div></div>
+      ${offersTable(pick)}
+    </div>
+  </div></section>
+
+  <section id="types"><div class="wrap">
+    <div class="sec-head"><h2>Детали и расходники для любой техники</h2></div>
+    <div class="types">${TYPES.map(t=>`<a class="ty${t.img?' ph-cell':''}${t.cls?' '+t.cls:''}" href="#" data-demo><div class="n">${t.n}</div><div class="c mono">${new Intl.NumberFormat('ru-RU').format(t.c)} поз.</div>${t.img?`<img src="${img(t.img)}" alt="" loading="lazy">`:''}</a>`).join('')}</div>
+  </div></section>
+
+  <section class="b2b" id="b2b" style="background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)"><div class="wrap">
+    <div>
+      <h2>Автопаркам и организациям</h2>
+      <p class="lead-p">Снабжаем запчастями компании с собственной техникой. Работаем по договору, с закрывающими документами.</p>
+      <div class="pts">
+        <div class="pt"><i class="ph ph-receipt"></i><b>Оплата по счёту</b><p>Выставим счёт на организацию и отгрузим после оплаты.</p></div>
+        <div class="pt"><i class="ph ph-calendar-check"></i><b>Отсрочка платежа</b><p>Для постоянных клиентов, по договору.</p></div>
+        <div class="pt"><i class="ph ph-percent"></i><b>Накопительные скидки</b><p>Цена снижается по мере роста закупок.</p></div>
+        <div class="pt"><i class="ph ph-list-checks"></i><b>Заявка списком</b><p>Пришлите список в Excel или текстом, соберём заказ и счёт.</p></div>
+      </div>
+    </div>
+    <div class="form-card" id="b2bCard">
+      <h3>Запросить условия</h3>
+      <p class="hint">Менеджер позвонит, расскажет про скидки и отсрочку и подготовит договор.</p>
+      <form id="b2bForm" novalidate>
+        <div class="fld"><label for="b-org">Организация или ИНН</label><input id="b-org" autocomplete="organization"></div>
+        <div class="fld"><label for="b-name">Контактное лицо</label><input id="b-name" autocomplete="name"></div>
+        <div class="fld"><label for="b-tel">Телефон</label><input id="b-tel" type="tel" autocomplete="tel" placeholder="+7"><span class="err">Укажите телефон для связи</span></div>
+        <div class="fld"><label>Техника в парке</label><div class="pick" id="b-pick">${['КАМАЗ','МАЗ','УРАЛ','ГАЗ','Автобусы','Прицепы','Другое'].map(x=>`<button type="button">${x}</button>`).join('')}</div></div>
+        <button class="btn btn-ink" style="width:100%;margin-top:6px">Запросить условия</button>
+      </form>
+    </div>
+  </div></section>
+
+  <section class="deliv" id="deliv"><div class="wrap">
+    <div class="zero"><b>0${nbsp}₽</b><div><p>Доставка в любой город России при заказе от 50${nbsp}000${nbsp}₽</p><small>Для заказов меньше стоимость и срок рассчитываются при оформлении по весу и адресу.</small></div></div>
+    <div>
+      <h2 style="margin-bottom:26px">Как получить заказ</h2>
+      <div class="ways">
+        <div class="way"><i class="ph ph-storefront"></i><div><b>Самовывоз</b><p>Пермь, ул. Василия Васильева, 11а. Пн-Пт 9:00-18:00, Сб 10:00-16:00. Второй пункт выдачи в Полазне.</p></div></div>
+        <div class="way"><i class="ph ph-moped"></i><div><b>Курьер по Перми</b><p>От 1 дня. Стоимость зависит от веса заказа.</p></div></div>
+        <div class="way"><i class="ph ph-truck"></i><div><b>Транспортной компанией</b><p>СДЭК, ПЭК, Деловые Линии, Энергия, DPD, Почта России.</p></div></div>
+        <div class="way"><i class="ph ph-credit-card"></i><div><b>Оплата</b><p>Картой, наличными, по СБП. Для организаций по счёту.</p></div></div>
+      </div>
+    </div>
+  </div></section>
+
+  <section id="articles" style="padding-top:0"><div class="wrap">
+    <div class="sec-head"><h2>Статьи</h2><a class="arrow-link" href="#" data-demo>Все статьи <i class="ph ph-arrow-right"></i></a></div>
+    <div class="arts">${ARTS.map(a=>`<a class="art-l" href="#" data-demo><span>${a}</span><i class="ph ph-arrow-right"></i></a>`).join('')}</div>
+  </div></section>
+
+  <section class="contacts" id="contacts" style="background:var(--surface);border-top:1px solid var(--line)"><div class="wrap">
+    <div>
+      <h2 style="margin-bottom:26px">Контакты</h2>
+      <div class="pt-card"><b>Магазин и склад в Перми</b><p>ул. Василия Васильева, 11а<br>Пн-Пт 9:00-18:00, Сб 10:00-16:00, Вс выходной</p></div>
+      <div class="pt-card"><b>Пункт выдачи в Полазне</b><p class="muted">Адрес и часы работы уточняются</p></div>
+      <a class="big-phone" href="tel:+73422485948">+7 (342) 248-59-48</a>
+      <p style="margin:6px 0 0;color:var(--ink-2)"><a href="tel:+73422569555">+7 (342) 256-95-55</a> · <a class="link" href="mailto:autobrig59@mail.ru">autobrig59@mail.ru</a></p>
+    </div>
+    <div class="map"><iframe title="Автоэксклюзив на карте" loading="lazy" src="https://yandex.ru/map-widget/v1/?text=%D0%9F%D0%B5%D1%80%D0%BC%D1%8C%2C%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%20%D0%92%D0%B0%D1%81%D0%B8%D0%BB%D0%B8%D1%8F%20%D0%92%D0%B0%D1%81%D0%B8%D0%BB%D1%8C%D0%B5%D0%B2%D0%B0%2C%2011%D0%B0&z=16"></iframe></div>
+  </div></section>
+  </div>`;
+}
+
+function crumbs(items){return`<nav class="crumbs" aria-label="Навигация">${items.map((it,i)=>i<items.length-1?`<a href="${it[1]||'#'}" ${it[1]?'':'data-demo'}>${it[0]}</a><i class="ph ph-caret-right"></i>`:`<span>${it[0]}</span>`).join('')}</nav>`}
+
+function vKamaz(){
+  return`<div class="view"><div class="wrap">
+  ${crumbs([['Главная','#/'],['Каталог'],['КАМАЗ']])}
+  <div class="page-h"><div><h1>Запчасти КАМАЗ</h1><p>${new Intl.NumberFormat('ru-RU').format(6139)} позиций. Узлы пронумерованы так же, как в каталоге деталей КАМАЗ.</p></div></div>
+  <div class="clusters">${KAMAZ.map(c=>`<div class="cl"><h3>${c.h}<span>${new Intl.NumberFormat('ru-RU').format(c.g.reduce((a,g)=>a+g[2],0))}</span></h3>
+    ${c.g.map(g=>`<a href="${g[3]?'#/kamaz/16':'#'}" ${g[3]?'class="hot"':'data-demo'}><span class="mono">${g[0]}</span><span>${g[1]}</span><span class="c">${g[2]}</span></a>`).join('')}</div>`).join('')}</div>
+  </div></div>`;
+}
+
+let LS={sub:'all',orig:false,brands:new Set(),sort:'def'};
+function listRows(parts){
+  if(!parts.length)return`<div class="empty-state"><i class="ph ph-funnel-x"></i><h3>Ничего не подошло под фильтры</h3><p>Снимите часть фильтров или пришлите номер детали менеджеру.</p><button class="btn btn-line" data-reset>Сбросить фильтры</button></div>`;
+  return`<div class="lrow lhead"><span></span><span>Наименование и артикул</span><span>Производитель</span><span>Наличие</span><span style="text-align:right">Цена</span><span></span></div>`+
+  parts.map(p=>{const offs=p._o||p.o.map((o,i)=>({...o,i}));const multi=offs.length>1;const o0=offs[0];const brands=[...new Set(offs.map(o=>o.b).filter(Boolean))];const c=!multi&&inCart(p.id,o0.i);
+   return`<div class="lrow">${thumb(p)}<div class="nmw"><a class="nm" href="#/p/${p.id}">${esc(p.n)}</a><span class="art mono">${esc(p.art)}</span></div>
+    <div class="brs">${multi?`<b>${offs.length} ${plural(offs.length,'вариант','варианта','вариантов')}</b><small>${brands.length?esc(brands.slice(0,2).join(', '))+(brands.length>2?' и др.':''):'разные поставщики'}</small>`:`${brandLabel(o0)}${isOrig(o0)?'<small>Оригинал</small>':''}`}</div>
+    <div class="stkc"><span class="stk">${pcs(offs.reduce((a,o)=>a+o.s,0))}</span></div>
+    <div class="pr num">${multi?`<small>от</small>`:''}${rub(Math.min(...offs.map(o=>o.p)))}</div>
+    <div class="act">${multi?`<button class="var-btn" data-var="${p.id}">Варианты<i class="ph ph-caret-down"></i></button>`:`<button class="add${c?' in':''}" data-add="${ckey(p.id,o0.i)}">${c?'<i class="ph ph-check"></i><span>В корзине</span>':'<i class="ph ph-shopping-cart-simple"></i><span>В корзину</span>'}</button>`}</div></div>
+    ${multi?`<div class="subrows" id="sr-${p.id}">${sortOffers(offs).map(o=>{const ci=inCart(p.id,o.i);return`<div class="srow"><span class="sp0"></span><span>${brandLabel(o)}${isOrig(o)?'<span class="badge-o">Оригинал</span>':''}${o.m?` <span class="mono muted" style="font-size:12.5px">${esc(o.m)}</span>`:''}</span><span class="sp0"></span><span class="stkc stk">${pcs(o.s)}</span><b class="num" style="text-align:right">${rub(o.p)}</b><span style="text-align:right"><button class="add${ci?' in':''}" data-add="${ckey(p.id,o.i)}">${ci?'<i class="ph ph-check"></i><span>В корзине</span>':'<i class="ph ph-shopping-cart-simple"></i><span>В корзину</span>'}</button></span></div>`}).join('')}</div>`:''}`}).join('');
+}
+function filterParts(){
+  let r=P.filter(p=>p.g==='kamaz/16'&&(LS.sub==='all'||p.sub===LS.sub)).map(p=>({...p,_o:p.o.map((o,i)=>({...o,i})).filter(o=>(!LS.orig||isOrig(o))&&(!LS.brands.size||LS.brands.has(o.b||'_none')))})).filter(p=>p._o.length);
+  const s={def:(a,b)=>(b._o.length>1)-(a._o.length>1),name:(a,b)=>a.n.localeCompare(b.n,'ru'),asc:(a,b)=>Math.min(...a._o.map(o=>o.p))-Math.min(...b._o.map(o=>o.p)),desc:(a,b)=>Math.min(...b._o.map(o=>o.p))-Math.min(...a._o.map(o=>o.p))}[LS.sort];
+  return r.sort(s);
+}
+function vList(){
+  const all=P.filter(p=>p.g==='kamaz/16');const bc={};all.forEach(p=>p.o.forEach(o=>{const k=o.b||'_none';bc[k]=(bc[k]||0)+1}));
+  const bl=Object.entries(bc).sort((a,b)=>b[1]-a[1]);
+  return`<div class="view"><div class="wrap">
+  ${crumbs([['Главная','#/'],['КАМАЗ','#/kamaz'],['16 Сцепление']])}
+  <div class="page-h"><div><h1>Сцепление КАМАЗ</h1><p><span class="mono">16</span> узел по каталогу · 196 позиций</p></div></div>
+  <div class="listing">
+    <aside class="filters" aria-label="Фильтры">
+      <div class="grp"><h4>Тип</h4><label class="chk"><input type="checkbox" id="f-orig" ${LS.orig?'checked':''}>Только оригинал КАМАЗ</label></div>
+      <div class="grp"><h4>Производитель</h4>${bl.map(([b,c])=>`<label class="chk"><input type="checkbox" data-brand="${esc(b)}" ${LS.brands.has(b)?'checked':''}>${b==='_none'?'Не указан':esc(b)}<span class="c">${c}</span></label>`).join('')}</div>
+      <button class="btn btn-ink m-flt-close" data-flt style="width:100%;margin-top:8px">Показать</button>
+    </aside>
+    <div>
+      <div class="subs">${Object.entries(SUBS).map(([k,v])=>`<button data-sub="${k}" class="${LS.sub===k?'on':''}">${v}</button>`).join('')}</div>
+      <div class="bar"><span id="lcount"></span><button class="btn btn-line btn-sm m-flt" data-flt><i class="ph ph-funnel"></i>Фильтры</button><label>Сортировка <select id="f-sort"><option value="def">Сначала с вариантами</option><option value="name">По названию</option><option value="asc">Сначала дешевле</option><option value="desc">Сначала дороже</option></select></label></div>
+      <div class="ltable" id="ltable"></div>
+      <div class="more"><button class="btn btn-line" data-demo>Показать ещё 172 позиции</button></div>
+    </div>
+  </div></div></div>`;
+}
+function paintList(){const r=filterParts();$('#ltable').innerHTML=listRows(r);$('#lcount').textContent=`Показано ${r.length} из 196`;const s=$('#f-sort');if(s)s.value=LS.sort}
+
+function vProduct(id){
+  const p=byId[id];if(!p)return vNotFound();
+  const g=GROUPS[p.g],st=shopStatus();
+  const path=p.g==='kamaz/16'?'#/kamaz/16':null;
+  return`<div class="view"><div class="wrap">
+  ${crumbs([['Главная','#/'],...(p.g.startsWith('kamaz')?[['КАМАЗ','#/kamaz']]:[]),[g,path],[p.n]])}
+  <div class="product" style="margin-top:22px">
+    <div>
+      <div class="gal-main" id="galMain">${p.imgs?`<img src="${img(p.imgs[0])}" alt="${esc(p.n)}">`:'<div class="nophoto"><i class="ph ph-camera-slash"></i>Фото появится позже</div>'}</div>
+      ${p.imgs&&p.imgs.length>1?`<div class="thumbs">${p.imgs.map((m,i)=>`<button class="${i?'':'on'}" data-img="${m}" aria-label="Фото ${i+1}"><img src="${img(m)}" alt=""></button>`).join('')}</div>`:''}
+    </div>
+    <div>
+      <h1 class="p-title">${esc(p.n)}</h1>
+      <div class="p-meta"><button class="copy" data-copy="${esc(p.art)}" title="Скопировать артикул">${esc(p.art)}<i class="ph ph-copy"></i></button><span style="align-self:center">${esc(p.use||'Применение: КАМАЗ')}</span></div>
+      <div class="offers">${offersTable(p)}</div>
+      <div class="oneclick"><button class="btn btn-line btn-sm" data-oneclick="${p.id}"><i class="ph ph-phone-call"></i>Купить в один клик</button><span>Не уверены, что подойдёт? Позвоните: <a class="link" href="tel:+73422485948">+7 (342) 248-59-48</a></span></div>
+      <div class="p-grid">
+        <div class="info"><h4>Получение</h4>
+          <div class="ln"><i class="ph ph-storefront"></i><span><b>Самовывоз ${st.pick}</b><br>Пермь, ул. Василия Васильева, 11а</span></div>
+          <div class="ln"><i class="ph ph-moped"></i><span><b>Курьер по Перми</b> от 1 дня</span></div>
+          <div class="ln"><i class="ph ph-truck"></i><span><b>По России</b> транспортной компанией. От 50${nbsp}000${nbsp}₽ бесплатно</span></div>
+        </div>
+        <div class="info"><h4>Характеристики</h4>
+          <div class="spec"><span>Артикул</span><span class="mono">${esc(p.art)}</span></div>
+          ${(p.specs||[]).map(s=>`<div class="spec"><span>${s[0]}</span><span>${s[1]}</span></div>`).join('')}
+          <div class="spec"><span>Вариантов на складе</span><span>${p.o.length}</span></div>
+          <div class="spec"><span>Оплата</span><span>карта, наличные, СБП, счёт</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="desc"><h3>Описание</h3><p>${esc(p.n)} с артикулом <span class="mono">${esc(p.art)}</span>. ${p.o.length>1?`На складе ${p.o.length} ${plural(p.o.length,'вариант','варианта','вариантов')} от разных производителей: сравните цену и наличие в таблице выше. `:''}Если не уверены в номере, пришлите VIN или фото старой детали, менеджер поможет подобрать.</p></div>
+  </div></div>`;
+}
+
+function vSearch(q){
+  const r=search(q);
+  return`<div class="view"><div class="wrap">
+  ${crumbs([['Главная','#/'],['Поиск']])}
+  <div class="page-h"><div><h1>«${esc(q)}»</h1><p>${r.length?`Найдено: ${r.length} ${plural(r.length,'деталь','детали','деталей')}, ${r.reduce((a,p)=>a+p.o.length,0)} ${plural(r.reduce((a,p)=>a+p.o.length,0),'вариант','варианта','вариантов')}`:'Ничего не нашли'}</p></div></div>
+  <div style="padding-bottom:72px">${r.length?`<div class="ltable">${listRows(r)}</div>`:`<div class="empty-state" style="padding-left:0"><i class="ph ph-magnifying-glass"></i><h3>Такой детали нет в наличии</h3><p>Пришлите номер менеджеру: проверим склад, поставщиков и сроки привоза. В прототипе попробуйте <button class="link mono" data-q="740-1004045">740-1004045</button> или <button class="link mono" data-q="1878000205">1878000205</button>.</p><button class="btn btn-accent" data-list><i class="ph ph-paperclip"></i>Отправить список деталей</button></div>`}</div>
+  </div></div>`;
+}
+function vNotFound(){return`<div class="view"><div class="wrap"><div class="empty-state" style="padding-left:0"><i class="ph ph-signpost"></i><h3>Страница не найдена</h3><p>Возможно, ссылка устарела.</p><a class="btn btn-line" href="#/">На главную</a></div></div></div>`}
+
+/* ---------- роутер ---------- */
+function route(){
+  const h=decodeURIComponent(location.hash.replace(/^#\/?/,''));const app=$('#app');let html;
+  if(!h)html=vHome();else if(h==='kamaz')html=vKamaz();else if(h==='kamaz/16')html=vList();
+  else if(h.startsWith('p/'))html=vProduct(h.slice(2));else if(h.startsWith('search/'))html=vSearch(h.slice(7));else html=vNotFound();
+  closeAll();document.body.classList.toggle('is-home',!h);app.innerHTML=html;$('#mega').classList.remove('open');$('#catBtn').setAttribute('aria-expanded','false');
+  $$('[data-search]',app).forEach(bindSearch);
+  if(h==='kamaz/16')paintList();
+  const sq=h.startsWith('search/')?h.slice(7):'';$('#hdr input').value=sq;
+  const target=sessionStorage.getItem('aex-scroll');
+  window.scrollTo(0,0);if(target){sessionStorage.removeItem('aex-scroll');setTimeout(()=>{const el=document.getElementById(target);if(el)window.scrollTo({top:el.getBoundingClientRect().top+scrollY-84,behavior:'smooth'})},60)}
+}
+window.addEventListener('hashchange',route);
+
+/* ---------- делегирование событий ---------- */
+document.addEventListener('click',e=>{
+  const t=e.target;
+  const demo=t.closest('[data-demo]');if(demo){e.preventDefault();e.stopPropagation();toast(DEMO);return}
+  const sc=t.closest('[data-scroll]');if(sc){e.preventDefault();const id=sc.dataset.scroll;if(location.hash&&location.hash!=='#/'){sessionStorage.setItem('aex-scroll',id);location.hash='#/'}else{const el=document.getElementById(id);el&&window.scrollTo({top:el.getBoundingClientRect().top+scrollY-84,behavior:'smooth'})}return}
+  const add=t.closest('[data-add]');if(add){e.preventDefault();const[id,i]=add.dataset.add.split('#');addToCart(id,+i,add);return}
+  const v=t.closest('[data-var]');if(v){const box=$('#sr-'+v.dataset.var);box.classList.toggle('open');v.classList.toggle('open');return}
+  const q=t.closest('[data-q]');if(q){location.hash='#/search/'+encodeURIComponent(q.dataset.q);return}
+  if(t.closest('[data-list]')){listModal();return}
+  const oc=t.closest('[data-oneclick]');if(oc){oneClick(oc.dataset.oneclick);return}
+  const cp=t.closest('[data-copy]');if(cp){const txt=cp.dataset.copy;const ok=()=>{cp.querySelector('i').className='ph ph-check';toast('Артикул скопирован');setTimeout(()=>{cp.querySelector('i').className='ph ph-copy'},1600)};try{navigator.clipboard.writeText(txt).then(ok,ok)}catch(err){ok()}return}
+  const im=t.closest('[data-img]');if(im){$('#galMain img').src=img(im.dataset.img);$$('.thumbs button').forEach(b=>b.classList.toggle('on',b===im));return}
+  const sub=t.closest('[data-sub]');if(sub){LS.sub=sub.dataset.sub;$$('[data-sub]').forEach(b=>b.classList.toggle('on',b===sub));paintList();return}
+  if(t.closest('[data-flt]')){$('.filters').classList.toggle('open');return}
+  if(t.closest('[data-reset]')){LS={sub:'all',orig:false,brands:new Set(),sort:'def'};route();return}
+  if(t.closest('[data-close]')||t===$('#ovl')){if(t.closest('a[data-close]'))closeAll();else{e.preventDefault();closeAll()}return}
+  const qq=t.closest('button[data-k]');if(qq){const c=cart.find(x=>x.k===qq.dataset.k),o=byId[c.id].o[c.i];c.q=Math.max(1,Math.min(o.s,c.q+(+qq.dataset.d)));if(c.q===o.s&&+qq.dataset.d>0)toast(`На складе ${pcs(o.s)}, больше добавить нельзя`);saveCart();renderDrawer();return}
+  const rm=t.closest('[data-rm]');if(rm){const k=rm.dataset.rm;cart=cart.filter(x=>x.k!==k);saveCart();renderDrawer();$$(`[data-add="${k}"]`).forEach(b=>{b.classList.remove('in');b.innerHTML='<i class="ph ph-shopping-cart-simple"></i><span>В корзину</span>'});return}
+  if(t.closest('#toCheckout')){renderCheckout();return}
+  const w=t.closest('#who button');if(w){$$('#who button').forEach(b=>b.classList.toggle('on',b===w));$('#innF').style.display=w.dataset.v==='o'?'flex':'none';return}
+  if(t.closest('#coSend')){if(!checkTel($('#co-tel')))return;cart=[];saveCart();$$('.add.in').forEach(b=>{b.classList.remove('in');b.innerHTML='<i class="ph ph-shopping-cart-simple"></i><span>В корзину</span>'});$('#drawer').innerHTML=`<div class="dr-h"><h3>Готово</h3><button class="x" data-close aria-label="Закрыть"><i class="ph ph-x"></i></button></div><div class="dr-b" style="padding-top:24px">${doneHtml('Заказ отправлен','Менеджер позвонит, чтобы подтвердить наличие и сумму.')}</div>`;$('#drawer').dataset.mode='done';return}
+  const pk=t.closest('#b-pick button');if(pk){pk.classList.toggle('on');return}
+});
+document.addEventListener('change',e=>{
+  const t=e.target;
+  if(t.id==='f-orig'){LS.orig=t.checked;paintList()}
+  if(t.dataset.brand!==undefined){t.checked?LS.brands.add(t.dataset.brand):LS.brands.delete(t.dataset.brand);paintList()}
+  if(t.id==='f-sort'){LS.sort=t.value;paintList()}
+  if(t.id==='lf-f'){$('#lf-fn').textContent=t.files[0]?t.files[0].name:'Прикрепить фото или файл'}
+});
+document.addEventListener('submit',e=>{
+  e.preventDefault();const f=e.target;
+  if(f.id==='listForm'){if(!checkTel($('#lf-tel')))return;$('#modal').innerHTML=`<button class="x" data-close aria-label="Закрыть"><i class="ph ph-x"></i></button>`+doneHtml('Список отправлен','Менеджер проверит наличие и перезвонит с ценой.')}
+  if(f.id==='ocForm'){if(!checkTel($('#oc-tel')))return;$('#modal').innerHTML=`<button class="x" data-close aria-label="Закрыть"><i class="ph ph-x"></i></button>`+doneHtml('Заявка принята','Менеджер перезвонит и оформит заказ.')}
+  if(f.id==='b2bForm'){if(!checkTel($('#b-tel')))return;$('#b2bCard').innerHTML=doneHtml('Запрос отправлен','Менеджер позвонит и расскажет про условия для вашей компании.')}
+});
+document.addEventListener('input',e=>{const f=e.target.closest('.fld.bad');if(f&&e.target.value.replace(/\D/g,'').length>=10)f.classList.remove('bad')});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeAll();$('#mega').classList.remove('open')}});
+
+$('#catBtn').addEventListener('click',()=>{const m=$('#mega');const o=m.classList.toggle('open');$('#catBtn').setAttribute('aria-expanded',o)});
+document.addEventListener('click',e=>{if(!e.target.closest('#mega')&&!e.target.closest('#catBtn'))$('#mega').classList.remove('open')});
+$('#cartBtn').addEventListener('click',openDrawer);
+
+/* mega + footer */
+$('#megaBrands').innerHTML=BRANDS.map(b=>`<li><a href="${b.id==='kamaz'?'#/kamaz':'#'}" ${b.id==='kamaz'?'':'data-demo'}>${b.n}<span>${new Intl.NumberFormat('ru-RU').format(b.c)}</span></a></li>`).join('');
+$('#megaTypes').innerHTML=TYPES.map(t=>`<li><a href="#" data-demo>${t.n}<span>${new Intl.NumberFormat('ru-RU').format(t.c)}</span></a></li>`).join('');
+$('#footBrands').innerHTML=BRANDS.slice(0,7).map(b=>`<li><a href="${b.id==='kamaz'?'#/kamaz':'#'}" ${b.id==='kamaz'?'':'data-demo'}>Запчасти ${b.n}</a></li>`).join('');
+
+bindSearch($('#hdr [data-search]'));
+paintStatus();setInterval(paintStatus,60000);
+paintCart();route();
+</script>
+</body>
+</html>
