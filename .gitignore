@@ -1,2 +1,4 @@
 img/*.jpg
+!img/store.jpg
+!img/sert-*.jpg
 img/logo_src.png
