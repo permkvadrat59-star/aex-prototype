@@ -457,6 +457,34 @@ footer .bottom .sp{flex:1}
 /* фото магазина */
 .store-ph{margin-top:24px;border-radius:var(--r);border:1px solid var(--line);width:100%;display:block}
 
+/* личный кабинет */
+a.cab{display:block;border:1px solid var(--dark);transition:border-color .2s}
+a.cab:hover{border-color:var(--accent)}
+.cab .go-cab{display:inline-flex;align-items:center;gap:7px;color:var(--accent);font-weight:600;font-size:14px;margin-top:16px}
+.cab .go-cab i{transition:transform .2s var(--ease)}
+a.cab:hover .go-cab i{transform:translateX(3px)}
+.cab-note{margin:0 0 22px;font-size:13.5px;color:var(--ink-3);display:flex;gap:8px;align-items:center}
+.cab-note i{color:var(--accent);font-size:17px}
+.seg.mini{max-width:380px;margin:18px 0 28px}
+.cab-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start;padding-bottom:72px}
+.cab-grid .info h4{display:flex;justify-content:space-between;align-items:baseline;font-size:16px}
+.cab-grid .info h4 span{font-size:12.5px;color:var(--ink-3);font-weight:500;font-family:var(--mono)}
+.cb-row{display:flex;justify-content:space-between;gap:6px 14px;align-items:baseline;padding:10px 0;border-top:1px solid var(--line);font-size:14.5px;flex-wrap:wrap}
+.cb-row:first-of-type{border-top:0}
+.cb-row .t{font-weight:600}
+.cb-row .t small{display:block;font-weight:400;font-size:12.5px;color:var(--ink-3);margin-top:1px}
+.cb-row .pr{font-weight:700;white-space:nowrap}
+.cb-row .pr s{font-weight:400;font-size:12.5px;color:var(--ink-3);margin-left:6px}
+.cb-row .st{font-size:13px;font-weight:500;white-space:nowrap}
+.st.okk{color:var(--ok)}
+.st.wait{color:#A3640A}
+.track.light{background:var(--tile);margin-top:14px}
+.disc-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.disc-head b{font-size:26px;letter-spacing:-.02em}
+.disc-head span{font-size:13px;color:var(--ink-3)}
+.marks.dark-t{color:var(--ink-3)}
+.marks.dark-t .on{color:var(--ink)}
+
 /* responsive */
 @media (max-width:1180px){
   .hdr-phone span{display:none}
@@ -484,10 +512,10 @@ footer .bottom .sp{flex:1}
 @media (max-width:767px){
   .wrap{padding:0 16px}
   section{padding:52px 0}
-  .hdr .wrap{height:auto;flex-wrap:wrap;gap:10px;padding-top:10px;padding-bottom:10px}
+  .hdr .wrap{height:auto;flex-wrap:wrap;gap:8px;padding-top:10px;padding-bottom:10px}
   .hdr .search{order:5;flex-basis:100%}
   .logo{margin-right:auto}
-  .logo img{height:22px}
+  .logo img{height:19px}
   .cat-btn span,.cart-btn .lbl{display:none}
   .cat-btn{width:44px;padding:0;justify-content:center;height:44px}
   .cart-btn{height:44px;padding:0 10px}
@@ -527,6 +555,8 @@ footer .bottom .sp{flex:1}
   .otable .add i{font-size:19px}
   body.is-home .hdr .search{display:none}
   .pts{grid-template-columns:1fr;gap:22px}
+  .cab-grid{grid-template-columns:1fr}
+  .seg.mini{max-width:none}
   .form-card{padding:20px}
   .zero{min-height:0;gap:28px;padding:24px}
   .arts{grid-template-columns:1fr}
@@ -583,6 +613,7 @@ footer .bottom .sp{flex:1}
     </div>
     <div class="hdr-phone"><a href="tel:+73422485948">+7 (342) 248-59-48</a><span><a href="tel:+73422569555" style="font-size:12.5px;font-weight:500">+7 (342) 256-95-55</a></span></div>
     <a class="icon-btn m-only" href="tel:+73422485948" aria-label="Позвонить"><i class="ph ph-phone"></i></a>
+    <a class="icon-btn" href="#/cabinet" aria-label="Личный кабинет"><i class="ph ph-user"></i></a>
     <button class="cart-btn" id="cartBtn" aria-label="Корзина"><i class="ph ph-shopping-cart-simple"></i><span class="lbl">Корзина</span><span class="cnt" id="cartCnt"></span></button>
   </div>
   <div class="mega" id="mega"><div class="wrap">
@@ -608,7 +639,7 @@ footer .bottom .sp{flex:1}
         <li><a href="#" data-demo>Возврат товара</a></li>
         <li><a href="#/" data-scroll="articles">Статьи</a></li>
         <li><a href="#" data-demo>Отзывы</a></li>
-        <li><a href="#" data-demo>Личный кабинет</a></li>
+        <li><a href="#/cabinet">Личный кабинет</a></li>
       </ul></div>
       <div><h5>Компания</h5><ul>
         <li><a href="#" data-demo>О компании</a></li>
@@ -901,13 +932,14 @@ function vHome(){
         <div class="pt"><i class="ph ph-percent"></i><b>Накопительные скидки</b><p>Цена снижается по мере роста закупок.</p></div>
         <div class="pt"><i class="ph ph-list-checks"></i><b>Заявка списком</b><p>Пришлите список в Excel или текстом, соберём заказ и счёт.</p></div>
       </div>
-      <div class="cab">
+      <a class="cab" href="#/cabinet">
         <span class="tag-soon">вариант развития</span>
         <div class="cab-h"><i class="ph ph-user-circle-gear"></i><div><b>Личный кабинет для оптовиков</b><span>личные цены, история заказов и накопительная скидка</span></div></div>
         <div class="track"><i></i></div>
         <div class="marks"><span>5%</span><span class="on">10%</span><span>15%</span></div>
-        <div class="cab-row"><span>Ваша цена · Шатун 740-1004045</span><b>7 910 ₽<s>8 790 ₽</s></b></div>
-      </div>
+        <div class="cab-row"><span>Ваша цена · Шатун 740-1004045</span><b>8 595 ₽<s>9 550 ₽</s></b></div>
+        <span class="go-cab">Открыть кабинет <i class="ph ph-arrow-right"></i></span>
+      </a>
     </div>
     <div class="form-card" id="b2bCard">
       <h3>Запросить условия</h3>
@@ -1049,10 +1081,77 @@ function vSearch(q){
 }
 function vNotFound(){return`<div class="view"><div class="wrap"><div class="empty-state" style="padding-left:0"><i class="ph ph-signpost"></i><h3>Страница не найдена</h3><p>Возможно, ссылка устарела.</p><a class="btn btn-line" href="#/">На главную</a></div></div></div>`}
 
+/* ---------- личный кабинет (демо) ---------- */
+let cabMode=sessionStorage.getItem('aex-cab')||'o';
+function vCabinet(){
+  const org=cabMode==='o';
+  const body=org?`
+    <div class="cab-grid">
+      <div class="info">
+        <h4>Организация <span>договор №ДП-214</span></h4>
+        <div class="cb-row"><span class="t">ООО «ТрансРегион»<small>ИНН 5904000000 · Пермь</small></span><span class="st okk">отсрочка 14 дней</span></div>
+        <div class="cb-row"><span class="t">Менеджер<small>Дмитрий, отдел продаж</small></span><a class="link" href="tel:+73422485948">+7 (342) 248-59-48</a></div>
+        <button class="btn btn-line btn-sm" style="margin-top:14px" data-demo>Реквизиты и документы</button>
+      </div>
+      <div class="info">
+        <h4>Накопительная скидка</h4>
+        <div class="disc-head"><b>10%</b><span>закупки за квартал · 318 450 ₽</span></div>
+        <div class="track light"><i style="width:64%"></i></div>
+        <div class="marks dark-t"><span>5%</span><span class="on">10%</span><span>15%</span></div>
+        <p style="margin:12px 0 0;font-size:13.5px;color:var(--ink-3)">До скидки 15% осталось 181 550 ₽ закупок.</p>
+      </div>
+      <div class="info">
+        <h4>Личные цены <span>со скидкой 10%</span></h4>
+        <div class="cb-row"><a class="t" href="#/p/shatun-740">Шатун КАМАЗ<small class="mono">740-1004045</small></a><span class="pr num">8 595 ₽<s>9 550 ₽</s></span></div>
+        <div class="cb-row"><a class="t" href="#/p/disk-evro3">Диск сцепления ведомый Евро-3<small class="mono">1878085641</small></a><span class="pr num">8 775 ₽<s>9 750 ₽</s></span></div>
+        <div class="cb-row"><a class="t" href="#/p/pgu-htfs204">Пневмогидроусилитель 6520<small class="mono">HTFS204</small></a><span class="pr num">8 181 ₽<s>9 090 ₽</s></span></div>
+        <p style="margin:12px 0 0;font-size:13.5px;color:var(--ink-3)">Личная цена действует на весь каталог и видна сразу в карточках.</p>
+      </div>
+      <div class="info">
+        <h4>Счета и заказы</h4>
+        <div class="cb-row"><span class="t">Счёт №121 от 15.11<small>23 позиции</small></span><span class="st wait">ждёт оплаты</span><span class="pr num">23 980 ₽</span></div>
+        <div class="cb-row"><span class="t">Счёт №118 от 12.11<small>14 позиций</small></span><span class="st okk">оплачен</span><span class="pr num">46 300 ₽</span></div>
+        <div class="cb-row"><span class="t">Заказ №51002 от 28.10<small>самовывоз</small></span><span class="st okk">выдан</span><span class="pr num">12 540 ₽</span></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px"><button class="btn btn-ink btn-sm" data-list><i class="ph ph-paperclip"></i>Заявка списком</button><button class="btn btn-line btn-sm" data-demo>Скачать счёт</button></div>
+      </div>
+    </div>`:`
+    <div class="cab-grid">
+      <div class="info">
+        <h4>Профиль</h4>
+        <div class="cb-row"><span class="t">Сергей Иванов<small>Пермь</small></span><span class="mono" style="font-size:13.5px">+7 902 000-00-00</span></div>
+        <button class="btn btn-line btn-sm" style="margin-top:14px" data-demo>Изменить данные</button>
+      </div>
+      <div class="info">
+        <h4>Мои заказы</h4>
+        <div class="cb-row"><span class="t">Заказ №51016 от 02.11<small>2 позиции · самовывоз</small></span><span class="st okk">выдан</span><span class="pr num">12 001 ₽</span></div>
+        <div class="cb-row"><span class="t">Заказ №50894 от 03.10<small>1 позиция · СДЭК</small></span><span class="st okk">получен</span><span class="pr num">3 584 ₽</span></div>
+        <button class="btn btn-line btn-sm" style="margin-top:14px" data-demo>Повторить заказ</button>
+      </div>
+      <div class="info">
+        <h4>Избранное</h4>
+        <div class="cb-row"><a class="t" href="#/p/shatun-740">Шатун КАМАЗ<small class="mono">740-1004045</small></a><span class="pr num">от 9 550 ₽</span></div>
+        <div class="cb-row"><a class="t" href="#/p/kolco-14-1601120">Кольцо упорное (пятак)<small class="mono">14-1601120</small></a><span class="pr num">2 451 ₽</span></div>
+      </div>
+      <div class="info">
+        <h4>Для организаций</h4>
+        <p style="margin:0 0 14px;font-size:14.5px;color:var(--ink-2)">Покупаете на компанию? Переключитесь на кабинет организации: оплата по счёту, отсрочка и накопительная скидка.</p>
+        <button class="btn btn-ink btn-sm" data-cabmode="o">Кабинет организации</button>
+      </div>
+    </div>`;
+  return`<div class="view"><div class="wrap">
+    ${crumbs([['Главная','#/'],['Личный кабинет']])}
+    <div class="page-h"><div><h1>Личный кабинет</h1><p>${org?'ООО «ТрансРегион» · оптовый покупатель':'Сергей · розничный покупатель'}</p></div></div>
+    <p class="cab-note"><i class="ph ph-info"></i>Экран из варианта развития. Данные демонстрационные, показывают логику кабинета.</p>
+    <div class="seg mini"><button class="${org?'':'on'}" data-cabmode="p">Физическое лицо</button><button class="${org?'on':''}" data-cabmode="o">Организация</button></div>
+    ${body}
+  </div></div>`;
+}
+
 /* ---------- роутер ---------- */
 function route(){
   const h=decodeURIComponent(location.hash.replace(/^#\/?/,''));const app=$('#app');let html;
   if(!h)html=vHome();else if(h==='kamaz')html=vKamaz();else if(h==='kamaz/16')html=vList();
+  else if(h==='cabinet')html=vCabinet();
   else if(h.startsWith('p/'))html=vProduct(h.slice(2));else if(h.startsWith('search/'))html=vSearch(h.slice(7));else html=vNotFound();
   closeAll();document.body.classList.toggle('is-home',!h);app.innerHTML=html;$('#mega').classList.remove('open');$('#catBtn').setAttribute('aria-expanded','false');
   $$('[data-search]',app).forEach(bindSearch);
@@ -1085,6 +1184,7 @@ document.addEventListener('click',e=>{
   const w=t.closest('#who button');if(w){$$('#who button').forEach(b=>b.classList.toggle('on',b===w));$('#innF').style.display=w.dataset.v==='o'?'flex':'none';return}
   if(t.closest('#coSend')){if(!checkTel($('#co-tel')))return;cart=[];saveCart();$$('.add.in').forEach(b=>{b.classList.remove('in');b.innerHTML='<i class="ph ph-shopping-cart-simple"></i><span>В корзину</span>'});$('#drawer').innerHTML=`<div class="dr-h"><h3>Готово</h3><button class="x" data-close aria-label="Закрыть"><i class="ph ph-x"></i></button></div><div class="dr-b" style="padding-top:24px">${doneHtml('Заказ отправлен','Менеджер позвонит, чтобы подтвердить наличие и сумму.')}</div>`;$('#drawer').dataset.mode='done';return}
   const pk=t.closest('#b-pick button');if(pk){pk.classList.toggle('on');return}
+  const cm=t.closest('[data-cabmode]');if(cm){cabMode=cm.dataset.cabmode;sessionStorage.setItem('aex-cab',cabMode);$('#app').innerHTML=vCabinet();window.scrollTo(0,0);return}
 });
 document.addEventListener('change',e=>{
   const t=e.target;
