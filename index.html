@@ -145,37 +145,36 @@ button{cursor:pointer;background:none;border:0;padding:0}
 .sugg .empty{padding:14px;font-size:14px;color:var(--ink-2)}
 
 /* sections */
-section{padding:72px 0}
+section{padding:80px 0}
 h1,h2,h3{margin:0;letter-spacing:-.02em;line-height:1.08}
 h2{font-size:clamp(24px,2.3vw,32px);font-weight:700;color:var(--choco)}
 .lead-p{margin:14px 0 0;color:var(--ink-2);max-width:62ch}
 
-/* hero */
-.hero2{padding:28px 0 58px}
-.hero-card{position:relative;background:var(--choco);border-radius:14px;min-height:360px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.95fr);align-items:center}
-.hero-deco{position:absolute;inset:0;border-radius:14px;overflow:hidden;pointer-events:none}
-.hero-deco svg{position:absolute;right:-60px;top:-90px;width:520px;height:520px;color:var(--brown);opacity:.55}
-.hero-deco .lineh{position:absolute;left:52%;right:0;top:62%;height:1px;background:var(--brown);opacity:.6}
-.hero-txt{position:relative;padding:38px 0 38px 48px;color:#F3F0EA}
+/* hero: картинка-постер */
+.hero-pic{padding:20px 0 0}
+.hp-card{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);background:var(--choco);border-radius:14px;overflow:hidden;box-shadow:0 1px 2px rgba(56,37,31,.06),0 18px 40px -24px rgba(56,37,31,.45)}
+.hp-txt{display:flex;flex-direction:column;justify-content:center;padding:32px 28px 32px 40px;color:#F3F0EA}
+.hp-img{position:relative}
+.hp-img:after{content:'';display:block;padding-top:50.9%}
+.hp-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:35% 50%}
+.hp-img:before{content:'';position:absolute;inset:0 auto 0 0;width:4%;z-index:1;background:linear-gradient(90deg,var(--choco),rgba(56,37,31,0))}
 .hero-tag{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--bronze);letter-spacing:.01em}
 .hero-tag i{font-size:17px}
-.hero-txt h1{margin-top:12px;font-size:clamp(30px,3.2vw,44px);font-weight:700;letter-spacing:-.025em;line-height:1.08;color:#fff;max-width:17ch}
-.hero-txt p{margin:14px 0 0;font-size:16.5px;line-height:1.55;color:rgba(243,240,234,.78);max-width:50ch}
-.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
-.hero-chips{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:18px;font-size:13px;color:rgba(243,240,234,.6)}
-.chip{height:32px;padding:0 12px;border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);font-family:var(--mono);font-size:13px;color:var(--ink);transition:border-color .18s,background .18s,color .18s}
-.chip:hover{border-color:var(--brown)}
+.hp-txt h1{margin-top:12px;font-size:clamp(28px,2.6vw,38px);font-weight:700;letter-spacing:-.025em;line-height:1.08;color:#fff;max-width:16ch}
+.hp-txt p{margin:12px 0 0;font-size:15.5px;line-height:1.55;color:rgba(243,240,234,.78);max-width:46ch}
+.hero-cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.hero-cta .btn{height:48px;padding:0 20px;font-size:15px}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:16px;font-size:13px;color:rgba(243,240,234,.6)}
 .hero-chips .chip{background:transparent;border-color:rgba(243,240,234,.22);color:#F3F0EA;height:30px;font-size:12.5px}
 .hero-chips .chip:hover{border-color:var(--bronze);color:var(--bronze)}
-.hero-vis{position:relative;align-self:stretch;min-height:300px}
-.hero-truck{position:absolute;right:28px;bottom:-30px;height:calc(100% + 6px);max-height:410px;width:auto;max-width:108%;z-index:1;filter:drop-shadow(0 22px 22px rgba(20,12,8,.32))}
-.hero-shadow{position:absolute;right:40px;bottom:-34px;width:78%;height:26px;border-radius:50%;background:rgba(56,37,31,.28);filter:blur(12px)}
+.chip{height:32px;padding:0 12px;border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);font-family:var(--mono);font-size:13px;color:var(--ink);transition:border-color .18s,background .18s,color .18s}
+.chip:hover{border-color:var(--brown)}
 
-/* преимущества */
-.adv{padding:0 0 64px}
-.adv-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.adv-i{display:flex;gap:14px;align-items:flex-start;padding:22px 22px 22px 0}
-.adv-i+.adv-i{padding-left:22px;border-left:1px solid var(--line)}
+/* преимущества: белая карточка под хиро */
+.adv{padding:16px 0 0}
+.adv-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:var(--surface);border:1px solid var(--line);border-radius:var(--rc)}
+.adv-i{display:flex;gap:14px;align-items:flex-start;padding:20px 22px}
+.adv-i+.adv-i{border-left:1px solid var(--line)}
 .adv-i i{font-size:26px;color:var(--brown);flex:none;margin-top:1px}
 .adv-i b{display:block;font-size:15.5px;font-weight:600;color:var(--choco)}
 .adv-i span{display:block;margin-top:3px;font-size:13.5px;color:var(--ink-3);line-height:1.4}
@@ -197,7 +196,51 @@ h2{font-size:clamp(24px,2.3vw,32px);font-weight:700;color:var(--choco)}
 .more-brands a{height:34px;padding:0 13px;border-radius:var(--r);border:1px solid var(--line);background:var(--surface);display:inline-flex;align-items:center;gap:8px;font-weight:500;color:var(--ink);transition:border-color .18s}
 .more-brands a:hover{border-color:var(--brown)}
 .more-brands a span{font-family:var(--mono);font-size:12px;color:var(--ink-3)}
-.sec-cats{padding-top:0}
+.sec-cats{padding-top:64px}
+.sub-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin:44px 0 16px}
+.sub-head h3{font-size:19px;font-weight:700;color:var(--choco);letter-spacing:-.01em}
+.tgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.tt{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--rc);transition:border-color .18s,transform .18s var(--ease)}
+.tt:hover{border-color:var(--bronze);transform:translateY(-2px)}
+.tt i{width:44px;height:44px;border-radius:10px;background:var(--tile);display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--brown);flex:none}
+.tt b{display:block;font-size:15px;font-weight:600;color:var(--ink);line-height:1.25}
+.tt span{display:block;font-size:12.5px;color:var(--ink-3);margin-top:2px;font-family:var(--mono)}
+.tt-all{background:var(--choco);border-color:var(--choco)}
+.tt-all b{color:#fff}
+.tt-all span{color:var(--bronze);font-family:var(--sans)}
+.tt-all i{background:rgba(214,154,85,.16);color:var(--bronze)}
+.tt-all:hover{border-color:var(--bronze)}
+
+/* рельса: заголовок слева 4 колонки, содержимое справа 8 */
+.s-rail{padding:0 0 72px}
+.ural+.s-rail{padding-top:72px}
+.rail{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;row-gap:28px;align-items:start;padding-top:40px;background:linear-gradient(var(--line),var(--line)) no-repeat 24px 0/calc(100% - 48px) 1px}
+.rail-h{grid-column:span 4}
+.rail-c{grid-column:span 8}
+.rail-h .lead-p{max-width:none}
+.rail-h>.arrow-link{margin-top:20px}
+.rail-h .pts{grid-template-columns:1fr;gap:0;margin-top:24px;border-top:1px solid var(--line)}
+.rail-h .pt{display:grid;grid-template-columns:34px 1fr;column-gap:10px;padding:14px 0;border-bottom:1px solid var(--line)}
+.rail-h .pt i{grid-row:span 2;font-size:22px;margin-top:1px}
+.rail-h .pt b{margin-top:0;font-size:15.5px}
+.rail-h .pt p{margin-top:2px;font-size:14px}
+.b2b-c{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:stretch}
+.b2b-c .cab{margin-top:0;display:flex;flex-direction:column;border-radius:var(--rc)}
+.b2b-c .cab .tag-soon{position:static;align-self:flex-start;margin-bottom:16px}
+.b2b-c .cab-h{padding-right:0}
+.b2b-c .cab .go-cab{margin-top:auto;padding-top:18px}
+.b2b-c .cab-row+.cab-row{margin-top:0;padding-top:12px;border-top:0}
+.cab-sub{display:block;margin-top:22px;font:600 10.5px/1 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--dark-ink-2)}
+.cab-row .st{font-style:normal;font-size:12px;font-weight:600;padding:3px 7px;border-radius:5px;margin-left:8px}
+.cab-row .st.wait{background:rgba(214,154,85,.16);color:var(--bronze)}
+.cab-row .st.okk{background:rgba(143,181,154,.16);color:#8FB59A}
+.rail-h .zero{min-height:0;margin-top:24px;padding:24px;gap:14px}
+.rail-h .zero b{font-size:clamp(56px,5.4vw,80px)}
+.rail-h .zero p{font-size:18px;max-width:none}
+.ways.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.ways.cards .way{background:var(--surface);border:1px solid var(--line);border-radius:var(--rc);padding:22px}
+.contacts .rail{align-items:stretch}
+.contacts .map{height:100%}
 #popular{padding-top:0}
 
 /* карточки товаров */
@@ -240,9 +283,6 @@ h2{font-size:clamp(24px,2.3vw,32px);font-weight:700;color:var(--choco)}
 .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:28px}
 
 /* offers compare */
-.compare{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.compare .wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:64px;align-items:center}
-.compare .lead-p{margin-bottom:22px}
 .offers{border:1px solid var(--line);border-radius:var(--rc);background:#fff;overflow:hidden}
 .offers-top{display:flex;gap:14px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line);background:var(--bg)}
 .offers-top .th{width:56px;height:56px;border-radius:4px;background:var(--tile);overflow:hidden;flex:none}
@@ -267,20 +307,8 @@ h2{font-size:clamp(24px,2.3vw,32px);font-weight:700;color:var(--choco)}
 .add i{font-size:16px}
 
 /* types bento */
-.types{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:minmax(150px,auto);gap:12px}
-.ty{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--rc);padding:18px 18px 16px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;transition:border-color .2s}
-.ty:hover{border-color:var(--bronze)}
-.ty .n{font-weight:650;font-size:17px;line-height:1.25;max-width:14ch;position:relative;z-index:1}
-.ty .c{font-size:13px;color:var(--ink-3);position:relative;z-index:1}
-.ty.ph-cell{background:var(--surface)}
-.ty.ph-cell img{position:absolute;right:4%;bottom:5%;height:84%;width:auto;max-width:58%;aspect-ratio:1;object-fit:contain;mix-blend-mode:multiply;transition:transform .5s var(--ease)}
-.ty.ph-cell:hover img{transform:scale(1.04)}
-.ty.span2{grid-column:span 2}
-.ty.span2 img{height:96%;max-width:50%;right:6%;bottom:2%}
-.ty.span2 .n{font-size:22px}
 
 /* b2b */
-.b2b .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.82fr);gap:56px;align-items:start}
 .pts{display:grid;grid-template-columns:1fr 1fr;gap:28px 32px;margin-top:34px}
 .pt i{font-size:26px;color:var(--brown)}
 .pt b{display:block;margin-top:10px;font-size:17px}
@@ -310,7 +338,6 @@ h2{font-size:clamp(24px,2.3vw,32px);font-weight:700;color:var(--choco)}
 .done p{color:var(--ink-2);margin:8px 0 0}
 
 /* delivery */
-.deliv .wrap{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:56px}
 .zero{background:var(--surface);border:1px solid var(--line);border-radius:var(--rc);padding:32px;display:flex;flex-direction:column;justify-content:space-between;min-height:340px;box-shadow:var(--shadow)}
 .zero b{font:800 clamp(80px,10vw,144px)/.85 var(--sans);letter-spacing:-.05em;color:var(--bronze)}
 .zero p{margin:0;font-size:clamp(20px,1.8vw,24px);font-weight:600;line-height:1.25;max-width:18ch;color:var(--choco)}
@@ -329,7 +356,6 @@ h2{font-size:clamp(24px,2.3vw,32px);font-weight:700;color:var(--choco)}
 .art-l:hover i{transform:translateX(4px);color:var(--bronze)}
 
 /* contacts */
-.contacts .wrap{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:48px;align-items:stretch}
 .pt-card{padding:22px 0;border-bottom:1px solid var(--line)}
 .pt-card:first-of-type{padding-top:0}
 .pt-card b{font-size:18px;display:block}
@@ -536,6 +562,14 @@ a.cab:hover .go-cab i{transform:translateX(3px)}
 .marks.dark-t .on{color:var(--ink)}
 
 /* responsive */
+@media (max-width:1279px){
+  .hp-card{grid-template-columns:1fr}
+  .hp-img{order:-1}
+  .hp-img img{object-position:50% 50%}
+  .hp-img:before{inset:auto 0 0 0;width:auto;height:5%;background:linear-gradient(0deg,var(--choco),rgba(56,37,31,0))}
+  .hp-txt{padding:24px 32px 30px}
+  .hp-txt h1{max-width:none}
+}
 @media (max-width:1180px){
   .hdr-phone span{display:none}
   .logo-cap{display:none}
@@ -553,19 +587,17 @@ a.cab:hover .go-cab i{transform:translateX(3px)}
   .hdr-acts{margin-left:auto}
   .nav-links{display:none}
   .hdr-nav>.wrap{gap:10px}
-  .hero-card{grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);min-height:340px}
-  .hero-txt{padding:32px 20px 32px 32px}
-  .hero-cta .btn-lg{height:46px;padding:0 18px;font-size:15px}
-  .hero-vis{min-height:260px}
-  .hero-truck{right:8px;bottom:-22px;height:auto;width:calc(100% - 8px);max-width:none;max-height:none}
-  .hero-deco svg{width:420px;height:420px;right:-80px;top:-70px}
   .mega .wrap{gap:28px}
   .mega ul{columns:1}
   .adv-row{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .adv-i:nth-child(3){padding-left:0;border-left:0}
+  .adv-i:nth-child(3){border-left:0}
+  .tgrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .rail-h,.rail-c{grid-column:1/-1}
+  .rail{row-gap:24px}
   .adv-i:nth-child(n+3){border-top:1px solid var(--line)}
   .cats{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .compare .wrap,.b2b .wrap,.deliv .wrap,.contacts .wrap,.ural .wrap,.product{grid-template-columns:1fr;gap:36px}
+  .ural .wrap,.product{grid-template-columns:1fr;gap:36px}
+  .contacts .map{height:auto}
   .ural .certrow{grid-template-columns:1fr 1fr}
   .clusters{columns:2}
   .listing{grid-template-columns:1fr}
@@ -596,22 +628,26 @@ a.cab:hover .go-cab i{transform:translateX(3px)}
   .search-box input{padding-left:12px;font-size:16px}
   .mega .wrap{grid-template-columns:1fr;gap:24px;max-height:70dvh;overflow:auto}
   .mega ul{columns:1}
-  .hero2{padding:16px 0 50px}
-  .hero-card{border-radius:12px}
-  .hero-card{grid-template-columns:1fr;min-height:0}
-  .hero-txt{padding:28px 20px 4px}
-  .hero-txt h1{font-size:28px}
-  .hero-txt p{font-size:15px}
-  .hero-cta{flex-direction:column;align-items:stretch;margin-top:22px}
-  .hero-cta .btn{width:100%}
-  .hero-vis{min-height:0;margin:0 12px;height:200px}
-  .hero-truck{left:50%;right:auto;transform:translateX(-50%);bottom:-24px;height:100%;width:auto;max-width:100%}
-  .hero-shadow{left:12%;right:12%;width:auto;bottom:-28px}
-  .hero-deco svg{width:340px;height:340px;right:-90px;top:auto;bottom:-120px}
-  .adv{padding-bottom:44px}
+  .hero-pic{padding-top:12px}
+  .hp-card{border-radius:12px}
+  .hp-txt{padding:20px 18px 24px}
+  .hp-txt h1{font-size:27px}
+  .hp-txt p{font-size:15px}
+  .hero-cta{flex-direction:column;align-items:stretch}
+  .hero-cta .btn{width:100%;justify-content:center}
+  .adv{padding-top:12px}
   .adv-row{grid-template-columns:1fr}
-  .adv-i,.adv-i+.adv-i{padding:16px 0;border-left:0}
+  .adv-i,.adv-i+.adv-i{padding:14px 16px;border-left:0}
   .adv-i+.adv-i{border-top:1px solid var(--line)}
+  .sec-cats{padding-top:48px}
+  .tgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .tt{padding:12px;gap:10px}
+  .tt i{width:36px;height:36px;font-size:19px;border-radius:8px}
+  .tt b{font-size:14px}
+  .s-rail{padding-bottom:48px}
+  .ural+.s-rail{padding-top:48px}
+  .rail{padding-top:28px;row-gap:20px;background-position:16px 0;background-size:calc(100% - 32px) 1px}
+  .b2b-c,.ways.cards{grid-template-columns:1fr}
   .cats{gap:10px}
   .cc-b{padding:12px 12px 13px}
   .cc-b b{font-size:15.5px}
@@ -634,10 +670,6 @@ a.cab:hover .go-cab i{transform:translateX(3px)}
   .ural .certrow{grid-template-columns:1fr;gap:14px}
   .cab-h{padding-right:0}
   .cab .tag-soon{position:static;display:inline-block;margin-bottom:12px}
-  .types{grid-template-columns:1fr 1fr;grid-auto-rows:minmax(110px,auto);gap:10px}
-  .ty.span2 .n{font-size:18px}
-  .ty.span2 img{max-width:52%}
-  .ty .n{font-size:15.5px}
   .otable th:nth-child(2),.otable td:nth-child(2){display:none}
   .otable td,.otable th{padding-left:12px;padding-right:12px}
   .otable .stk-m{display:block!important}
@@ -986,6 +1018,7 @@ function offersTable(p){
 }
 
 /* ---------- экраны ---------- */
+const TICON={'Пневматика':'wind','Электрика':'lightning','Подшипники':'disc','Фильтры':'funnel','Метизы':'nut','ГСМ и автохимия':'drop','Ремни, шланги, трубки':'pipe','Инструмент':'wrench','Сальники, манжеты, РТИ':'circle-notch','Оборудование для сервиса':'toolbox','Аксессуары':'steering-wheel'};
 const POP=['shatun-740','disk-evro3','pgu-htfs204','kolco-14-1601120','korzina-14','motor-otop','vilka-16','val-vilki'];
 function favBtn(id){const on=FAV.has(id);return`<button class="fav${on?' on':''}" data-fav="${id}" aria-pressed="${on}" aria-label="${on?'Убрать из избранного':'В избранное'}"><i class="${on?'ph-fill':'ph'} ph-heart"></i></button>`}
 function pcard(id){
@@ -998,33 +1031,32 @@ function vHome(){
   const pick=byId['shatun-740'];
   const nf=n=>new Intl.NumberFormat('ru-RU').format(n);
   return`<div class="view">
-  <section class="hero2"><div class="wrap">
-    <div class="hero-card">
-      <div class="hero-deco"><svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M184.0 100.0 L195.8 105.4 L195.2 112.6 L182.5 115.7 L179.9 126.0 L189.5 134.8 L186.6 141.4 L173.6 140.5 L168.0 149.4 L174.4 160.7 L169.6 166.2 L157.5 161.2 L149.4 168.0 L151.9 180.7 L145.7 184.4 L135.8 176.0 L126.0 179.9 L124.5 192.8 L117.4 194.4 L110.5 183.3 L100.0 184.0 L94.6 195.8 L87.4 195.2 L84.3 182.5 L74.0 179.9 L65.2 189.5 L58.6 186.6 L59.5 173.6 L50.6 168.0 L39.3 174.4 L33.8 169.6 L38.8 157.5 L32.0 149.4 L19.3 151.9 L15.6 145.7 L24.0 135.8 L20.1 126.0 L7.2 124.5 L5.6 117.4 L16.7 110.5 L16.0 100.0 L4.2 94.6 L4.8 87.4 L17.5 84.3 L20.1 74.0 L10.5 65.2 L13.4 58.6 L26.4 59.5 L32.0 50.6 L25.6 39.3 L30.4 33.8 L42.5 38.8 L50.6 32.0 L48.1 19.3 L54.3 15.6 L64.2 24.0 L74.0 20.1 L75.5 7.2 L82.6 5.6 L89.5 16.7 L100.0 16.0 L105.4 4.2 L112.6 4.8 L115.7 17.5 L126.0 20.1 L134.8 10.5 L141.4 13.4 L140.5 26.4 L149.4 32.0 L160.7 25.6 L166.2 30.4 L161.2 42.5 L168.0 50.6 L180.7 48.1 L184.4 54.3 L176.0 64.2 L179.9 74.0 L192.8 75.5 L194.4 82.6 L183.3 89.5 Z"/><circle cx="100" cy="100" r="52"/><circle cx="100" cy="100" r="22"/><circle cx="100" cy="100" r="66" stroke-dasharray="2 5"/></svg><i class="lineh"></i></div>
-      <div class="hero-txt">
-        <span class="hero-tag"><i class="ph ph-seal-check"></i>Официальный дилер АЗ «Урал» · с 2005 года</span>
-        <h1>Запчасти, на которые можно положиться</h1>
-        <p>Надёжные запчасти для бесперебойной работы вашего транспорта. Склад в Перми, оригинал и аналоги рядом.</p>
-        <div class="hero-cta"><a class="btn btn-accent btn-lg" href="#/" data-scroll="cats">Перейти в каталог<i class="ph ph-arrow-right"></i></a><button class="btn btn-ghost btn-lg" data-list><i class="ph ph-paperclip"></i>Отправить список деталей</button></div>
-        <div class="hero-chips">Часто ищут:${['740-1004045','1878000205','ПГУ 6520','5320-1602560'].map(q=>`<button class="chip" data-q="${q}">${q}</button>`).join('')}</div>
-      </div>
-      <div class="hero-vis"><i class="hero-shadow"></i><img class="hero-truck" src="img/hero-truck.webp" alt="Седельный тягач КАМАЗ" width="850" height="705"></div>
+  <section class="hero-pic"><div class="wrap"><div class="hp-card">
+    <div class="hp-txt">
+      <span class="hero-tag"><i class="ph ph-seal-check"></i>Официальный дилер АЗ «Урал» · с 2005 года</span>
+      <h1>Запчасти, на которые можно положиться</h1>
+      <p>Надёжные запчасти для бесперебойной работы вашего транспорта. Склад в Перми, оригинал и аналоги рядом.</p>
+      <div class="hero-cta"><a class="btn btn-accent" href="#/" data-scroll="cats">Перейти в каталог<i class="ph ph-arrow-right"></i></a><button class="btn btn-ghost" data-list><i class="ph ph-paperclip"></i>Отправить список деталей</button></div>
+      <div class="hero-chips">Часто ищут:${['740-1004045','1878000205','ПГУ 6520','5320-1602560'].map(q=>`<button class="chip" data-q="${q}">${q}</button>`).join('')}</div>
     </div>
-  </div></section>
+    <div class="hp-img"><img src="img/hero-2027.webp" width="1670" height="850" alt="Автоэксклюзив 2027. Запчасти, качество, надёжность" fetchpriority="high"></div>
+  </div></div></section>
 
   <section class="adv"><div class="wrap"><div class="adv-row">
-    <div class="adv-i"><i class="ph ph-stack"></i><div><b>Широкий ассортимент</b><span>20${nbsp}000+ позиций на складе в Перми</span></div></div>
+    <div class="adv-i"><i class="ph ph-stack"></i><div><b>Широкий ассортимент</b><span>20${nbsp}000+ позиций в Перми</span></div></div>
     <div class="adv-i"><i class="ph ph-handshake"></i><div><b>Проверенные поставщики</b><span>Дилер «Урала», Starco, MotorDetal</span></div></div>
     <div class="adv-i"><i class="ph ph-magnifying-glass-plus"></i><div><b>Помощь в подборе</b><span>По VIN, фото или старой детали</span></div></div>
     <div class="adv-i"><i class="ph ph-truck"></i><div><b>Доставка по России</b><span>Бесплатно от 50${nbsp}000${nbsp}₽</span></div></div>
   </div></div></section>
 
   <section id="cats" class="sec-cats"><div class="wrap">
-    <div class="sec-head"><h2>Популярные категории</h2><a class="arrow-link" href="#/kamaz">Весь каталог <i class="ph ph-arrow-right"></i></a></div>
+    <div class="sec-head"><h2>Каталог запчастей</h2><a class="arrow-link" href="#/kamaz">Весь каталог <i class="ph ph-arrow-right"></i></a></div>
     <div class="cats">
       ${[['КАМАЗ',6139,'kamaz','#/kamaz','','42 узла по каталогу'],['МАЗ',2408,'maz','#','',''],['УРАЛ',1542,'ural','#','Официальный дилер',''],['Автобусы',564,'bus','#','','ПАЗ, ЛиАЗ, НефАЗ'],['Прицепы',240,'trailer','#','','Полуприцепы и оси'],['Инструмент',1793,'tool','#','','Для сервиса и гаража']].map(([n,c,im,href,tag,sub])=>`<a class="cc" href="${href}"${href==='#'?' data-demo':''}>${tag?`<span class="cc-tag">${tag}</span>`:''}<div class="cc-im"><img src="img/cat-${im}.webp" alt="${n}" loading="lazy"></div><div class="cc-b"><div><b>${n}</b><span>${nf(c)} ${plural(c,'позиция','позиции','позиций')}${sub?' · '+sub:''}</span></div><i class="ph ph-arrow-right"></i></div></a>`).join('')}
     </div>
     <div class="more-brands">Ещё марки:${BRANDS.filter(b=>['yamz','zil','kraz','gaz','uaz','weichai'].includes(b.id)).map(b=>`<a href="#" data-demo>${b.n}<span>${nf(b.c)}</span></a>`).join('')}</div>
+    <div class="sub-head"><h3>По типу детали</h3></div>
+    <div class="tgrid">${TYPES.map(t=>`<a class="tt" href="#" data-demo><i class="ph ph-${TICON[t.n]||'package'}"></i><div><b>${t.n}</b><span>${nf(t.c)} поз.</span></div></a>`).join('')}<a class="tt tt-all" href="#/kamaz"><i class="ph ph-squares-four"></i><div><b>Весь каталог</b><span>20${nbsp}000+ позиций</span></div></a></div>
   </div></section>
 
   <section id="popular"><div class="wrap">
@@ -1051,25 +1083,20 @@ function vHome(){
     </div>
   </div></section>
 
-  <section class="compare"><div class="wrap">
-    <div>
+  <section class="compare s-rail"><div class="wrap rail">
+    <div class="rail-h">
       <h2>Оригинал и аналоги на одной странице</h2>
       <p class="lead-p">Под одним номером детали собраны все варианты со склада: заводской оригинал и аналоги разных производителей. Сравните цену и наличие, выберите подходящий.</p>
       <a class="arrow-link link" href="#/p/shatun-740">Открыть карточку шатуна <i class="ph ph-arrow-right"></i></a>
     </div>
-    <div class="offers">
+    <div class="rail-c"><div class="offers">
       <div class="offers-top"><div class="th"><img src="${img('shatun-2')}" alt=""></div><div><b>${esc(pick.n)} <span class="mono" style="font-size:14px;color:var(--ink-2)">${pick.art}</span></b><span>${pick.o.length} варианта на складе в Перми</span></div></div>
       ${offersTable(pick)}
-    </div>
+    </div></div>
   </div></section>
 
-  <section id="types"><div class="wrap">
-    <div class="sec-head"><h2>Детали и расходники для любой техники</h2></div>
-    <div class="types">${TYPES.map(t=>`<a class="ty${t.img?' ph-cell':''}${t.cls?' '+t.cls:''}" href="#" data-demo><div class="n">${t.n}</div><div class="c mono">${new Intl.NumberFormat('ru-RU').format(t.c)} поз.</div>${t.img?`<img src="${img(t.img)}" alt="" loading="lazy">`:''}</a>`).join('')}</div>
-  </div></section>
-
-  <section class="b2b" id="b2b" style="background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)"><div class="wrap">
-    <div>
+  <section class="b2b s-rail" id="b2b"><div class="wrap rail">
+    <div class="rail-h">
       <h2>Автопаркам и организациям</h2>
       <p class="lead-p">Снабжаем запчастями компании с собственной техникой. Работаем по договору, с закрывающими документами.</p>
       <div class="pts">
@@ -1078,15 +1105,21 @@ function vHome(){
         <div class="pt"><i class="ph ph-percent"></i><b>Накопительные скидки</b><p>Цена снижается по мере роста закупок.</p></div>
         <div class="pt"><i class="ph ph-list-checks"></i><b>Заявка списком</b><p>Пришлите список в Excel или текстом, соберём заказ и счёт.</p></div>
       </div>
+    </div>
+    <div class="rail-c b2b-c">
       <a class="cab" href="#/cabinet">
         <span class="tag-soon">вариант развития</span>
         <div class="cab-h"><i class="ph ph-user-circle-gear"></i><div><b>Личный кабинет для оптовиков</b><span>личные цены, история заказов и накопительная скидка</span></div></div>
         <div class="track"><i></i></div>
         <div class="marks"><span>5%</span><span class="on">10%</span><span>15%</span></div>
-        <div class="cab-row"><span>Ваша цена · Шатун 740-1004045</span><b>8 595 ₽<s>9 550 ₽</s></b></div>
+        <div class="cab-row"><span>Шатун 740-1004045</span><b>8 595 ₽<s>9 550 ₽</s></b></div>
+        <div class="cab-row"><span>Диск сцепления Евро-3</span><b>8 775 ₽<s>9 750 ₽</s></b></div>
+        <div class="cab-row"><span>ПГУ 6520, HTFS204</span><b>8 181 ₽<s>9 090 ₽</s></b></div>
+        <span class="cab-sub">Счета</span>
+        <div class="cab-row"><span>№121 от 15.11<em class="st wait">ждёт оплаты</em></span><b>23 980 ₽</b></div>
+        <div class="cab-row"><span>№118 от 12.11<em class="st okk">оплачен</em></span><b>46 300 ₽</b></div>
         <span class="go-cab">Открыть кабинет <i class="ph ph-arrow-right"></i></span>
       </a>
-    </div>
     <div class="form-card" id="b2bCard">
       <h3>Запросить условия</h3>
       <p class="hint">Менеджер позвонит, расскажет про скидки и отсрочку и подготовит договор.</p>
@@ -1098,13 +1131,17 @@ function vHome(){
         <button class="btn btn-ink" style="width:100%;margin-top:6px">Запросить условия</button>
       </form>
     </div>
+    </div>
   </div></section>
 
-  <section class="deliv" id="deliv"><div class="wrap">
-    <div class="zero"><b>0${nbsp}₽</b><div><p>Доставка в любой город России при заказе от 50${nbsp}000${nbsp}₽</p><small>Для заказов меньше стоимость и срок рассчитываются при оформлении по весу и адресу.</small></div></div>
-    <div>
-      <h2 style="margin-bottom:26px">Как получить заказ</h2>
-      <div class="ways">
+  <section class="deliv s-rail" id="deliv"><div class="wrap rail">
+    <div class="rail-h">
+      <h2>Доставка и оплата</h2>
+      <p class="lead-p">Отгружаем со склада в Перми. Заберите сами, закажите курьера или отправим транспортной компанией.</p>
+      <div class="zero"><b>0${nbsp}₽</b><div><p>Доставка по России при заказе от 50${nbsp}000${nbsp}₽</p><small>Для заказов меньше стоимость и срок рассчитываются при оформлении по весу и адресу.</small></div></div>
+    </div>
+    <div class="rail-c">
+      <div class="ways cards">
         <div class="way"><i class="ph ph-storefront"></i><div><b>Самовывоз</b><p>Пермь, ул. Василия Васильева, 11а. Пн-Пт 9:00-18:00, Сб 10:00-16:00. Второй пункт выдачи в Полазне.</p></div></div>
         <div class="way"><i class="ph ph-moped"></i><div><b>Курьер по Перми</b><p>От 1 дня. Стоимость зависит от веса заказа.</p></div></div>
         <div class="way"><i class="ph ph-truck"></i><div><b>Транспортной компанией</b><p>СДЭК, ПЭК, Деловые Линии, Энергия, DPD, Почта России.</p></div></div>
@@ -1113,21 +1150,21 @@ function vHome(){
     </div>
   </div></section>
 
-  <section id="articles" style="padding-top:0"><div class="wrap">
-    <div class="sec-head"><h2>Статьи</h2><a class="arrow-link" href="#" data-demo>Все статьи <i class="ph ph-arrow-right"></i></a></div>
-    <div class="arts">${ARTS.map(a=>`<a class="art-l" href="#" data-demo><span>${a}</span><i class="ph ph-arrow-right"></i></a>`).join('')}</div>
+  <section id="articles" class="s-rail"><div class="wrap rail">
+    <div class="rail-h"><h2>Статьи</h2><p class="lead-p">Как подобрать деталь и ухаживать за техникой.</p><a class="arrow-link" href="#" data-demo>Все статьи <i class="ph ph-arrow-right"></i></a></div>
+    <div class="rail-c"><div class="arts">${ARTS.map(a=>`<a class="art-l" href="#" data-demo><span>${a}</span><i class="ph ph-arrow-right"></i></a>`).join('')}</div></div>
   </div></section>
 
-  <section class="contacts" id="contacts" style="background:var(--surface);border-top:1px solid var(--line)"><div class="wrap">
-    <div>
-      <h2 style="margin-bottom:26px">Контакты</h2>
+  <section class="contacts s-rail" id="contacts"><div class="wrap rail">
+    <div class="rail-h">
+      <h2 style="margin-bottom:24px">Контакты</h2>
       <div class="pt-card"><b>Магазин и склад в Перми</b><p>ул. Василия Васильева, 11а<br>Пн-Пт 9:00-18:00, Сб 10:00-16:00, Вс выходной</p></div>
       <div class="pt-card"><b>Пункт выдачи в Полазне</b><p class="muted">Адрес и часы работы уточняются</p></div>
       <a class="big-phone" href="tel:+73422485948">+7 (342) 248-59-48</a>
       <p style="margin:6px 0 0;color:var(--ink-2)"><a href="tel:+73422569555">+7 (342) 256-95-55</a> · <a class="link" href="mailto:autobrig59@mail.ru">autobrig59@mail.ru</a></p>
       <img class="store-ph" src="img/store.jpg" alt="Магазин «Автоэксклюзив» на улице Василия Васильева, 11а" loading="lazy">
     </div>
-    <div class="map"><iframe title="Автоэксклюзив на карте" loading="lazy" src="https://yandex.ru/map-widget/v1/?text=%D0%9F%D0%B5%D1%80%D0%BC%D1%8C%2C%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%20%D0%92%D0%B0%D1%81%D0%B8%D0%BB%D0%B8%D1%8F%20%D0%92%D0%B0%D1%81%D0%B8%D0%BB%D1%8C%D0%B5%D0%B2%D0%B0%2C%2011%D0%B0&z=16"></iframe></div>
+    <div class="rail-c map"><iframe title="Автоэксклюзив на карте" loading="lazy" src="https://yandex.ru/map-widget/v1/?text=%D0%9F%D0%B5%D1%80%D0%BC%D1%8C%2C%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%20%D0%92%D0%B0%D1%81%D0%B8%D0%BB%D0%B8%D1%8F%20%D0%92%D0%B0%D1%81%D0%B8%D0%BB%D1%8C%D0%B5%D0%B2%D0%B0%2C%2011%D0%B0&z=16"></iframe></div>
   </div></section>
   </div>`;
 }
